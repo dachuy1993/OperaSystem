@@ -1,0 +1,70 @@
+﻿<Window x:Class="W_Opera.Page_RejectSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Reject Sample" Height="600" Width="1100" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Center">
+                <TextBox x:Name="txt_Reject" Height="30" VerticalContentAlignment="Center" Margin="5"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <Button x:Name="btn_Reject" Content="Reject" Height="30" Width="120" Click="btn_Reject_Click"></Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ListView x:Name="lvSampleReject" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
+                             Margin="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding modelcode,Mode=OneWay}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Model Code" Width="150"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding seq,Mode=OneWay}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="STT" Width="50"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding remark,Mode=OneWay}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Note" Width="650"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding insempcode,Mode=OneWay}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="ID" Width="50"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding insdt,Mode=OneWay}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Date" Width="150"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+        </Grid>
+
+    </Grid>
+</Window>

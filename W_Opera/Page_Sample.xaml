@@ -1,0 +1,29 @@
+﻿<Page x:Class="W_Opera.Page_Sample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:W_Opera"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1100"
+      Title="Page_Sample">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="236*"/>
+                    <ColumnDefinition Width="311*"/>
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="frameSample" Grid.ColumnSpan="2"></Frame>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

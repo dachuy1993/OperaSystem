@@ -1,0 +1,204 @@
+﻿<Window x:Class="W_Opera.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Opera System" Height="650" Width="1100" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closed="Window_Closed">
+    <Window.Resources>        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="2"/>           
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>                
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Background="LightGray">
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="4" VerticalAlignment="Center" Orientation="Horizontal">
+
+                    <ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Background="LightGray">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource styleButtonMainHeader}" Click="ButtonTop_Click" Background="{Binding BackGroundColor,Converter={StaticResource ColorDimGray_LightGreen}}">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImageSource}" Style="{StaticResource styleImageHeader}"></Image>
+                                        <TextBlock Text="{Binding ContentButton}" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>                        
+                        
+                    </ListView>
+                    <!--<Button Name="btnHome" Style="{StaticResource styleButtonMainHeader}" Margin="25,0,5,0" Click="BtnHome_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/Home.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="{DynamicResource Menu}" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepHR" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepHR_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/HR.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="HR" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepACC" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepACC_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/Acc.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="ACC" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepPro" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepPro_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/Pro.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="PRO" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepQC" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepQC_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/QC.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="QC" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepEquiment" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepEquiment_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/Equiment.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="EQUIT" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnDepIT" Style="{StaticResource styleButtonMainHeader}" Click="BtnDepIT_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/IT.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="IT" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="btnSeeting" Style="{StaticResource styleButtonMainHeader}" Click="BtnSeeting_Click">
+                        <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                            <Image Source="Image/Dep/Setting.png" Style="{StaticResource styleImageHeader}"></Image>
+                            <TextBlock Text="SETTING" Style="{StaticResource styeTextBlockHeader}"></TextBlock>
+                        </StackPanel>
+                    </Button>-->
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+
+                    <StackPanel Visibility="Hidden">
+                        <Button Name="btnMainGlobal" Style="{StaticResource styleButtonRound}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="BtnMainGlobal_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Image/Info/global_gray.png" Height="28" Width="28"></Image>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button Name="btnMainAbout" Click="btnMainAbout_Click" Style="{StaticResource styleButtonRound}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Image/Info/info_gray.png" Height="30" Width="30"></Image>                               
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button Name="btnMainExit" Click="BtnMainExit_Click" Style="{StaticResource styleButtonRound}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Image/Info/power_gray.png" Height="30" Width="30"></Image>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>                   
+                </StackPanel>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Right" Visibility="Hidden">
+                    <Label Name="lbUserLogin" VerticalContentAlignment="Center" FontWeight="Bold" Width="50" HorizontalContentAlignment="Center"></Label>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Grid.ColumnSpan="5" Background="#FFD7EDFC"></StackPanel>
+        </Grid>
+        <!--<Grid Grid.Row="2">
+            <StackPanel>
+                --><!--<ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="lvStackItem" SelectionChanged="LvStackItem_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="LightGray" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextAlignment="Center"></TextBlock>
+                                    <Button Content="X" Width="20" Height="20" Click="ButtonClean_Click" Style="{StaticResource styleButtonClean}">
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>--><!--
+            </StackPanel>
+        </Grid>-->
+        <Grid Grid.Row="3" Name="GridMainControl">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15"/>               
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical">
+                    <Button Name="btnOpen" Height="50" Style="{StaticResource styleButtonMenuControl}" Content="»" FontWeight="Bold" Margin="2,0,2.2,0" Click="BtnOpenMenuControl_Click"/>
+                    <Button Name="btnClose" Height="50" Style="{StaticResource styleButtonMenuControl}" Content="«" FontWeight="Bold" Margin="2,0,2.2,0" Click="BtnCloseMenuControl_Click"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel  Orientation="Vertical" Grid.Row="2" Name="stackMenuControl" Width="150" Background="White" HorizontalAlignment="Left">
+                    <ListView x:Name="lvListItemMenu">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center">
+                                    <Button Content="{Binding ContentButton}" Style="{StaticResource styleButtonItemMenu}"                                            
+                                    Click="ButtonItemMenu_Click" Width="120" Background="{Binding BackGroundColor,Converter={StaticResource ColorLightGray_LightGreen}}">
+                                        <!--<StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding ImageSource}" Width="20" Height="20"></Image>
+                                            <TextBlock Text="{Binding NameItem}"></TextBlock>
+                                        </StackPanel>-->
+                                    </Button>
+                                </StackPanel>
+                                <!--<StackPanel VerticalAlignment="Center">
+                                    <Button Content="{Binding NameItem}" Style="{StaticResource styleButtonItemMenu}" 
+                                    Click="ButtonItemMenu_Click" Width="120" Background="{Binding Source={x:Static local:ColorButtonMenu.listButtonMenu},
+                                        Converter={StaticResource ColorGreen}}"></Button>
+                                </StackPanel>-->
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <Grid Name="stackMainControl">
+                    <!--<Grid Name="stackMainControl" Background="White">
+                    <Frame Name="frameControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
+                </Grid>-->
+                </Grid>
+            </Grid>
+           
+
+
+        </Grid>
+       
+        
+       
+        
+        
+
+    </Grid>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="W_Opera.Window_About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="About" Height="150" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <StackPanel Background="White" Orientation="Vertical">
+        <TextBlock x:Name="txt_Version" Height="30" Margin="10"></TextBlock>
+        <Label Content="IP SETTING" Name="lab_IpSetting"></Label>
+        <ComboBox SelectedIndex="0" x:Name="cbb_IpSetting" SelectionChanged="cbb_IpSetting_SelectionChanged">
+            <ComboBoxItem Content="192.168.2.10"></ComboBoxItem>
+            <ComboBoxItem Content="192.168.2.5"></ComboBoxItem>
+        </ComboBox>
+
+    </StackPanel>
+</Window>

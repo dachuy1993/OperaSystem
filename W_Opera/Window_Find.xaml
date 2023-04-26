@@ -1,0 +1,57 @@
+﻿<Window x:Class="W_Opera.Window_Find"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Window_Find" Height="450" Width="800">
+    <Grid>
+        <ListView x:Name="lvFindModelCode">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding CUSTPARTCODE,Mode=OneWay}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Content="Sản phẩm" Width="200"></GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Header="VER" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Width="20" Height="20" Fill="{Binding MA,Mode=OneWay}"></Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Tên sản phẩm" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Width="20" Height="20" Fill="{Binding SX,Mode=OneWay}"></Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="QC" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Width="20" Height="20" Fill="{Binding CL,Mode=OneWay}"></Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="RnD" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Width="20" Height="20" Fill="{Binding RD,Mode=OneWay}"></Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Pur" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Ellipse Width="20" Height="20" Fill="{Binding KD,Mode=OneWay}"></Ellipse>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

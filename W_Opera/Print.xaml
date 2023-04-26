@@ -1,0 +1,39 @@
+﻿<Window x:Class="W_Opera.Print"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Print" Height="800" Width="750" WindowStartupLocation="CenterScreen"  
+        Closing="Window_Closing" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnPrint" FontSize="18" Width="100" Height="30" Margin="10,0" Click="btnPrint_Click">
+                <StackPanel Orientation="Horizontal">                    
+                    <Image Source="Image/Edit/printer.png" Height="20" Width="20"></Image>
+                    <Label Content="Print" Margin="10,0" VerticalContentAlignment="Center" FontSize="14"></Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnXls" Width="100" Height="30" Margin="10,0" Click="btnXls_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Image/Edit/xls-export.png" Height="20" Width="20"></Image>
+                    <Label Content="Excel" Margin="10,0" VerticalContentAlignment="Center" FontSize="14"></Label>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnListXls" Width="100" Height="30" Margin="10,0" Click="btnListXls_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Image/Edit/xls-export.png" Height="20" Width="20"></Image>
+                    <Label Content="List Excel" Margin="10,0" VerticalContentAlignment="Center" FontSize="14"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <DocumentViewer Name="view" Zoom="100"></DocumentViewer>
+        </Grid>
+    </Grid>
+</Window>

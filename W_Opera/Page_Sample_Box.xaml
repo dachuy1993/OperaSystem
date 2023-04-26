@@ -1,0 +1,1111 @@
+﻿<Page x:Class="W_Opera.Page_Sample_Box"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:W_Opera"
+      mc:Ignorable="d"      
+      d:DesignHeight="610" d:DesignWidth="1100"
+      Title="Page_Sample_Box">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="0.5"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="520"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3">
+            <StackPanel Grid.ColumnSpan="3" Grid.Column="0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
+                <CheckBox x:Name="ckb_CheckXLS" Checked="ckb_CheckXLS_Checked" Unchecked="ckb_CheckXLS_Unchecked" VerticalAlignment="Center" Margin="15,0,15,0">All</CheckBox>
+                <Label Content="Thời gian" VerticalAlignment="Center"></Label>
+                <DatePicker Name="dp_DateStart" VerticalContentAlignment="Center" Height="30"
+                            SelectedDateChanged="Dp_DateStart_SelectedDateChanged" Margin="5,0,0,0">
+
+                </DatePicker>
+                <TextBlock Text="~" Margin="10,0" VerticalAlignment="Center"></TextBlock>
+                <DatePicker Name="dp_DateFinish" VerticalContentAlignment="Center" Height="30"
+                            SelectedDateChanged="Dp_DateFinish_SelectedDateChanged"></DatePicker>
+                <Label Content="Mã KH" VerticalContentAlignment="Center"></Label>
+                <TextBox x:Name="txt_FilterSample" KeyDown="txt_FilterSample_KeyDown" Width="200" Margin="5" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+
+                <ComboBox Name="cbbFillterApprove" SelectionChanged="cbbFillterApprove_SelectionChanged" Height="30" Margin="5" Width="100" SelectedIndex="0" VerticalContentAlignment="Center">
+                    <ComboBoxItem Content="Tìm kiếm All"></ComboBoxItem>
+                    <ComboBoxItem Content="Approve OK"></ComboBoxItem>
+                    <ComboBoxItem Content="Approve NG"></ComboBoxItem>
+                    <ComboBoxItem Content="Approve RE"></ComboBoxItem>
+                    <ComboBoxItem Content="Run OK"></ComboBoxItem>
+                    <ComboBoxItem Content="Run NG"></ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="btn_FilterSample" Click="btn_FilterSample_Click" Content="Tìm kiếm" Height="30" Width="100" Margin="5"></Button>
+                <Button x:Name="btn_Reject" Click="btn_Reject_Click" Content="Reject" Height="30" Width="100" Margin="5"></Button>
+                <CheckBox VerticalAlignment="Center" Content="Test" Name="ckbTest" Checked="ckbTest_Checked" Unchecked="ckbTest_Unchecked" Visibility="Hidden"></CheckBox>
+
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.ColumnSpan="3" Grid.Row="1" Background="Gray"/>
+        <!--ListView-->
+        <Grid Grid.Column="0" Grid.Row="2" Margin="2">
+            <ListView x:Name="lvApproveSample" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
+                              SelectionChanged="lvApproveSample_SelectionChanged" Margin="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="√" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding checkXLS}" Checked="checkListSample_Checked" Unchecked="checkListSample_UnChecked"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding custpartcode,Mode=OneWay}" >
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Content="Model Code" Width="200"></GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Mar" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Ellipse Width="20" Height="20" Fill="{Binding dep_mar,Mode=OneWay}"></Ellipse>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pro" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Ellipse Width="20" Height="20" Fill="{Binding dep_pro,Mode=OneWay}"></Ellipse>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="QC" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Ellipse Width="20" Height="20" Fill="{Binding dep_qc,Mode=OneWay}"></Ellipse>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="RnD" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Ellipse Width="20" Height="20" Fill="{Binding dep_rnd,Mode=OneWay}"></Ellipse>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pur" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Ellipse Width="20" Height="20" Fill="{Binding dep_pur,Mode=OneWay}"></Ellipse>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Run" Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<Ellipse Width="20" Height="20" Fill="{Binding dep_mar,Mode=OneWay}"></Ellipse>-->
+                                    <Label Content="{Binding printed}" HorizontalAlignment="Center" FontWeight="Bold" HorizontalContentAlignment="Center"></Label>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+        </Grid>
+        <!--Vách ngăn-->
+        <GridSplitter Grid.Column="1" Grid.Row="2" Background="DodgerBlue" HorizontalAlignment="Stretch"></GridSplitter>
+        <!--Phần nội dung-->
+        <Grid Grid.Column="2" Grid.Row="2" Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="305"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--List Button Edit-->
+                <StackPanel Grid.Row="1" x:Name="grid_ButtonEditor" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                    <ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Margin="2">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource styleButtonEdit}"  
+                                    Background="{Binding BackGroundColor,Converter={StaticResource ColorLightGray_LightGreen}}"
+                                    Click="ButtonTop_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding ImageSource}" Style="{StaticResource styleImageEdit}"></Image>
+                                        <TextBlock Text="{Binding ContentButton}" Style="{StaticResource styeTextBlockEdit}"></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <!--List Button Approve-->
+                <Border Grid.RowSpan="2" Width="300" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="DodgerBlue" BorderThickness="1" Margin="2">
+                    <Grid x:Name="stackApprove">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="0.5"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="DodgerBlue"></Grid>
+                        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="DodgerBlue"></Grid>
+                        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="5" Background="DodgerBlue"></Grid>
+                        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="7" Background="DodgerBlue"></Grid>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="9" Grid.Column="0" Background="DodgerBlue"></Grid>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="2">
+                            <Label HorizontalContentAlignment="Center" FontWeight="Bold">Mar</Label>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="2" Margin="2">
+                            <Label HorizontalContentAlignment="Center" FontWeight="Bold">Pro</Label>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="4" Margin="2">
+                            <Label HorizontalContentAlignment="Center" FontWeight="Bold">QC</Label>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="6" Margin="2">
+                            <Label HorizontalContentAlignment="Center" FontWeight="Bold">RnD</Label>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="8" Margin="2">
+                            <Label HorizontalContentAlignment="Center" FontWeight="Bold">Pur</Label>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="0" Margin="2">
+                            <Button x:Name="btnApprove_Ma" Click="btnApprove_Ma_Click" Content="Approve" BorderThickness="0" Background="{Binding Path=dep_mar,Source={x:Static local:SampleBox.box}}"></Button>
+                            <CheckBox x:Name="ckbApprove_Ma" Checked="ckbApprove_Ma_Checked" Unchecked="ckbApprove_Ma_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="2" Margin="2">
+                            <Button x:Name="btnApprove_SX" Click="btnApprove_SX_Click"  Content="Approve" BorderThickness="0" Background="{Binding Path=dep_pro,Source={x:Static local:SampleBox.box}}"></Button>
+                            <CheckBox x:Name="ckbApprove_SX" Checked="ckbApprove_SX_Checked" Unchecked="ckbApprove_SX_Unchecked"  VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="4" Margin="2">
+                            <Button x:Name="btnApprove_CL" Click="btnApprove_CL_Click"  Content="Approve" BorderThickness="0" Background="{Binding Path=dep_qc,Source={x:Static local:SampleBox.box}}"></Button>
+                            <CheckBox x:Name="ckbApprove_CL" Checked="ckbApprove_CL_Checked" Unchecked="ckbApprove_CL_Unchecked"  VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="6" Margin="2">
+                            <Button x:Name="btnApprove_RD" Click="btnApprove_RD_Click"  Content="Approve" BorderThickness="0" Background="{Binding Path=dep_rnd,Source={x:Static local:SampleBox.box}}"></Button>
+                            <CheckBox x:Name="ckbApprove_RD" Checked="ckbApprove_RD_Checked" Unchecked="ckbApprove_RD_Unchecked"  VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="8" Margin="2">
+                            <Button x:Name="btnApprove_KD" Click="btnApprove_KD_Click"  Content="Approve" BorderThickness="0" Background="{Binding Path=dep_pur,Source={x:Static local:SampleBox.box}}"></Button>
+                            <CheckBox x:Name="ckbApprove_KD" Checked="ckbApprove_KD_Checked" Unchecked="ckbApprove_KD_Unchecked"  VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="0.5"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="0.5"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="0.5"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.5"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Background="LightGray" Content="Model" Height="25" FontSize="11" FontWeight="Bold" HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <Label Grid.Row="0" Grid.Column="4" Background="LightGray" Content="Mã hàng" Height="25" FontSize="11" FontWeight="Bold" HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <Label Grid.Row="0" Grid.Column="8" Background="LightGray" Content="Tình trạng" Height="25" FontSize="11" FontWeight="Bold"  HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <Label Grid.Row="2" Grid.Column="0" Background="LightGray" Content="Ver" Height="25" FontSize="11" FontWeight="Bold"  HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <Label Grid.Row="2" Grid.Column="4" Background="LightGray" Content="Khách hàng" Height="25" FontSize="11" FontWeight="Bold"  HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <Label Grid.Row="2" Grid.Column="8" Background="LightGray" Content="Người Y/C" Height="25" FontSize="11" FontWeight="Bold"  HorizontalContentAlignment="Center" Margin="2"></Label>
+                    <TextBox x:Name="txt_modelcode" Grid.Row="0" Grid.Column="2" Margin="2" Text="{Binding Path=modelcode,Source={x:Static local:SampleBox.box}}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+                    <TextBox x:Name="txt_cuspartcode" Grid.Row="0" Grid.Column="6" Margin="2"  Text="{Binding Path=custpartcode,Source={x:Static local:SampleBox.box}}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+                    <TextBox x:Name="txt_infomation" Grid.Row="0" Grid.Column="10" Margin="2" FontFamily="Time New Roman" Text="{Binding Path=information,Source={x:Static local:SampleBox.box}}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+                    <TextBox x:Name="txt_version" Grid.Row="2" Grid.Column="2" Margin="2"       Text="{Binding Path=version,Source={x:Static local:SampleBox.box}}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+                    <TextBox x:Name="txt_cusgb" Grid.Row="2" Grid.Column="6" Margin="2"       Text="{Binding Path=cust_gb,Source={x:Static local:SampleBox.box}}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+                    <TextBox x:Name="txt_imsempcode" Grid.Row="2" Grid.Column="10" Margin="2"   Text="{Binding Path=imsempcode,Source={x:Static local:SampleBox.box}}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="13"></TextBox>
+
+
+                    <Grid Grid.Column="1" Grid.RowSpan="3" Background="Gray"></Grid>
+                    <Grid Grid.Column="3" Grid.RowSpan="3" Background="Gray"></Grid>
+                    <Grid Grid.Column="5" Grid.RowSpan="3" Background="Gray"></Grid>
+                    <Grid Grid.Column="7" Grid.RowSpan="3" Background="Gray"></Grid>
+                    <Grid Grid.Column="9" Grid.RowSpan="3" Background="Gray"></Grid>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="11" Background="Gray"></Grid>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Margin="2">
+                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="280"></RowDefinition>
+                            <RowDefinition Height="0.5"/>
+                            <RowDefinition Height="435"></RowDefinition>
+                            <RowDefinition Height="0.5"/>
+                            <RowDefinition Height="150"></RowDefinition>
+                            <RowDefinition Height="0.5"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="Gray"></Grid>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="3" Background="Gray"></Grid>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Label Content="SPEC" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>                              
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.RowSpan="3" Background="Gray"/>
+                            <Grid Grid.Column="3" Grid.RowSpan="3" Background="Gray"/>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="102"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1" Background="Gray"></Grid>
+                                <Grid Grid.Row="3" Background="Gray"></Grid>
+                                <Grid Grid.Row="5" Background="Gray"></Grid>
+                                <Grid Grid.Row="7" Background="Gray"></Grid>
+                                <Grid Grid.Row="9" Background="Gray"></Grid>
+                                <Grid Grid.Row="11" Background="Gray"></Grid>
+                                <Grid Grid.Row="13" Background="Gray"></Grid>
+                                <Grid Grid.Row="15" Background="Gray"></Grid>
+                                <Grid Grid.Row="0">
+                                    <ComboBox ItemsSource="{Binding ListSpecPaper}" SelectedIndex="{Binding Path=paperindex1,Source={x:Static local:SampleBox.box}}" x:Name="cbb_SpecPaper1" SelectionChanged="cbb_SpecPaper1_SelectionChanged">
+                                    </ComboBox >
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <ComboBox ItemsSource="{Binding ListSpecPaper}" SelectedIndex="{Binding Path=paperindex2,Source={x:Static local:SampleBox.box}}" x:Name="cbb_SpecPaper2" SelectionChanged="cbb_SpecPaper2_SelectionChanged">
+                                    </ComboBox >
+                                </Grid>
+                                <Grid Grid.Row="8">
+                                    <ComboBox ItemsSource="{Binding ListSpecPaper}" SelectedIndex="{Binding Path=paperindex3,Source={x:Static local:SampleBox.box}}" x:Name="cbb_SpecPaper3" SelectionChanged="cbb_SpecPaper3_SelectionChanged">
+                                    </ComboBox >
+                                </Grid>
+                                <Grid Grid.Row="2" Background="AliceBlue" Margin="1">
+                                    <TextBlock Text="Kích thước in" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="6" Background="AliceBlue" Margin="1">
+                                    <TextBlock Text="Kích thước in" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="10" Background="AliceBlue" Margin="1">
+                                    <TextBlock Text="Kích thước in" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Column="2" Grid.Row="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row="7" Background="Gray"></Grid>
+                                    <Grid Grid.RowSpan="8" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Bìa Cứng" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="1" Grid.RowSpan="8" Background="Gray"/>
+                                    <Grid Grid.Column="2" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nắp trên" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="2" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nắp Dưới" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="4"  Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Cover" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="6"  Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Mider" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="14" Background="AliceBlue" Margin="1">
+                                    <TextBlock Text="Kích thước thành phẩm(Dài/Rộng/Cao)" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <TextBox x:Name="txt_SpecPaper_Name1" Text="{Binding Path=paper_name1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecPaper_Size1" Text="{Binding Path=paper_size1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecPaper_Scale1" Text="{Binding Path=paper_scale1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox Text="" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <TextBox x:Name="txt_SpecPaper_Name2" Text="{Binding Path=paper_name2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecPaper_Size2" Text="{Binding Path=paper_size2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecPaper_Scale2" Text="{Binding Path=paper_scale2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox Text="" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="8">
+                                    <TextBox x:Name="txt_SpecPaper_Name3" Text="{Binding Path=paper_name3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecPaper_Size3" Text="{Binding Path=paper_size3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecPaper_Scale3" Text="{Binding Path=paper_scale3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox Text="" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecCover_Up_Name" Text="{Binding Path=cover_up_name1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecCover_Up_Size" Text="{Binding Path=cover_up_size1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox x:Name="txt_SpecCover_Up_Scale" Text="{Binding Path=cover_up_scale1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="6" Background="AliceBlue">
+                                        <TextBlock  Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Kích thước" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecCover_Lo_Name" Text="{Binding Path=cover_up_name2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecCover_Lo_Size" Text="{Binding Path=cover_up_size2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox x:Name="txt_SpecCover_Lo_Scale" Text="{Binding Path=cover_up_scale2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="6" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Kích thước" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecCover_Cover_Name" Text="{Binding Path=cover_up_name3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecCover_Cover_Size" Text="{Binding Path=cover_up_size3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox x:Name="txt_SpecCover_Cover_Scale" Text="{Binding Path=cover_up_scale3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="6" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Kích thước" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="18">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="7" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_SpecCover_Mid_Name" Text="{Binding Path=cover_up_name4,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_SpecCover_Mid_Size" Text="{Binding Path=cover_up_size4,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="8">
+                                        <TextBox x:Name="txt_SpecCover_Mid_Scale" Text="{Binding Path=cover_up_scale4,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="6" Background="AliceBlue">
+                                        <TextBlock Text="Định dạng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock Text="Kích thước" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="20">
+                                    <TextBox x:Name="txt_SpecFullSize" Text="{Binding Path=fullsize,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="1" Background="Gray"></Grid>
+                                <Grid Grid.Row="3" Background="Gray"></Grid>
+                                <Grid Grid.Row="5" Background="Gray"></Grid>
+                                <Grid Grid.Row="7" Background="Gray"></Grid>
+                                <Grid Grid.Row="9" Background="Gray"></Grid>
+                                <Grid Grid.Row="11" Background="Gray"></Grid>
+                                <Grid Grid.Row="13" Background="Gray"></Grid>
+                                <Grid Grid.Row="15" Background="Gray"></Grid>
+                                <Grid Grid.Row="17" Background="Gray"></Grid>
+                                <Grid Grid.Row="19" Background="Gray"></Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1" Background="Gray" Grid.RowSpan="30"/>
+                            <Grid Grid.Column="3" Background="Gray" Grid.RowSpan="30"/>
+                            <Grid Grid.Column="0" Grid.RowSpan="30">
+                                <TextBlock Text="QUI TRÌNH" FontSize="25" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="76"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="204"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1" Grid.Row="1" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="3" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="5" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="7" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="9" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="11" Background="Gray"/>
+                                <Grid Grid.Column="1" Grid.Row="13" Background="Gray"/>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1" Grid.RowSpan="6" Background="Gray"/>
+                                    <Grid Grid.RowSpan="6" Background="AliceBlue" Margin="1">
+                                        <Label Content="In" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue" Margin="1">
+                                        <ComboBox ItemsSource="{Binding ListSpecColor}" SelectedIndex="{Binding Path=printindex1,Source={x:Static local:SampleBox.box}}" x:Name="cbb_Process_Color1" SelectionChanged="cbb_Process_Color1_SelectionChanged">
+                                        </ComboBox >
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="2" Background="AliceBlue" Margin="1">
+                                        <ComboBox ItemsSource="{Binding ListSpecColor}" SelectedIndex="{Binding Path=printindex2,Source={x:Static local:SampleBox.box}}" x:Name="cbb_Process_Color2" SelectionChanged="cbb_Process_Color2_SelectionChanged">
+                                        </ComboBox >
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="4"  Background="AliceBlue" Margin="1">
+                                        <ComboBox ItemsSource="{Binding ListSpecColor}" SelectedIndex="{Binding Path=printindex3,Source={x:Static local:SampleBox.box}}" x:Name="cbb_Process_Color3" SelectionChanged="cbb_Process_Color3_SelectionChanged">
+                                        </ComboBox >
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="2" Background="AliceBlue" Margin="1">
+                                    <TextBlock Text="Coating(Lớp phủ)" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Column="1" Grid.RowSpan="4" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="1" Background="Gray"></Grid>
+                                    <Grid Grid.RowSpan="8" Background="AliceBlue" Margin="1">
+                                        <Label Content="Glossy" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Màu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="2" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="0.5"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Column="1" Grid.RowSpan="16" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="3" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="5" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="7" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="9" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="11" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="13" Background="Gray"></Grid>
+                                    <Grid Grid.Column="2" Grid.Row ="15" Background="Gray"></Grid>
+                                    <Grid Grid.RowSpan="16" Background="AliceBlue" Margin="1">
+                                        <Label Content="Stemping Hologram" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="0" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Màu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="4" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Màu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="8" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Màu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="2" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="6" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="10" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="12" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Màu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="14" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1" Grid.RowSpan="12" Background="Gray"></Grid>
+                                    <Grid Background="AliceBlue" Margin="1">
+                                        <Label Content="Debossing" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="0" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Background="AliceBlue" Margin="1">
+                                        <Label Content="Imbossing" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="0" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Nội dung" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Background="AliceBlue" Margin="1">
+                                        <Label Content="Bồi" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="0" Background="AliceBlue" Margin="1">
+                                        <TextBlock Text="Kiểu bồi" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1" Background="Gray"/>
+                                <Grid Grid.Row="3" Background="Gray"/>
+                                <Grid Grid.Row="5" Background="Gray"/>
+                                <Grid Grid.Row="7" Background="Gray"/>
+                                <Grid Grid.Row="9" Background="Gray"/>
+                                <Grid Grid.Row="11" Background="Gray"/>
+                                <Grid Grid.Row="13" Background="Gray"/>
+                                <Grid Grid.Row="15" Background="Gray"/>
+                                <Grid Grid.Row="17" Background="Gray"/>
+                                <Grid Grid.Row="19" Background="Gray"/>
+                                <Grid Grid.Row="21" Background="Gray"/>
+                                <Grid Grid.Row="23" Background="Gray"/>
+                                <Grid Grid.Row="25" Background="Gray"/>
+                                <Grid Grid.Row="27" Background="Gray"/>
+                                <Grid Grid.Row="29" Background="Gray"/>
+                                <Grid Grid.Row="31" Background="Gray"/>
+                                <Grid Grid.Row="33" Background="Gray"/>
+                                <Grid Grid.Row="0">
+                                    <TextBox x:Name="txt_Process_Color1" Text="{Binding Path=print_color1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <TextBox x:Name="txt_Process_Color2" Text="{Binding Path=print_color2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <TextBox x:Name="txt_Process_Color3" Text="{Binding Path=print_color3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="6">
+                                    <TextBox x:Name="txt_Process_Coating" Text="{Binding Path=coating,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="8">
+                                    <TextBox x:Name="txt_Process_Glosy_Name" Text="{Binding Path=glossy_color,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="10">
+                                    <TextBox x:Name="txt_Process_Glosy_Detail" Text="{Binding Path=glossy_detail,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="12">
+                                    <TextBox x:Name="txt_Process_Holo_Color1" Text="{Binding Path=holo_color1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="14">
+                                    <TextBox x:Name="txt_Process_Holo_Detail1" Text="{Binding Path=holo_detail1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="16">
+                                    <TextBox x:Name="txt_Process_Holo_Color2" Text="{Binding Path=holo_color2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="18">
+                                    <TextBox x:Name="txt_Process_Holo_Detail2" Text="{Binding Path=holo_detail2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="20">
+                                    <TextBox x:Name="txt_Process_Holo_Color3" Text="{Binding Path=holo_color3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="22">
+                                    <TextBox x:Name="txt_Process_Holo_Detail3" Text="{Binding Path=holo_detail3,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="24">
+                                    <TextBox x:Name="txt_Process_Holo_Color4" Text="{Binding Path=holo_color4,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="26">
+                                    <TextBox x:Name="txt_Process_Holo_Detail4" Text="{Binding Path=holo_detail4,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="28">
+                                    <TextBox x:Name="txt_Process_Debo_Detail" Text="{Binding Path=debosing_detail,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="30">
+                                    <TextBox x:Name="txt_Process_Imbo_Detail" Text="{Binding Path=imbosing_detail,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="32">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="0.5"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1" Background="Gray"></Grid>
+                                    <Grid Grid.Column="3" Background="Gray"></Grid>
+                                    <Grid>
+                                        <TextBox x:Name="txt_Process_Boi_Name" Text="{Binding Path=boi_detaiil,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <TextBox x:Name="txt_Process_Boi_Color" Text="{Binding Path=boi_color,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Margin="1"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Background="AliceBlue">
+                                        <TextBlock  Text="Màu Sóng" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Ghi Chú" FontSize="25" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1" Background="Gray"/>
+                            <Grid Grid.Column="3" Background="Gray"/>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1" Background="Gray"/>
+                                <Grid Grid.Row="3" Background="Gray"/>
+                                <Grid Grid.Row="5" Background="Gray"/>
+                                <Grid Grid.Row="7" Background="Gray"/>
+                                <Grid Grid.Row="9" Background="Gray"/>
+                                <Grid Grid.Row="0" Background="AliceBlue">
+                                    <TextBlock Text="Ngày yêu cầu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="2" Background="AliceBlue">
+                                    <TextBlock Text="Số lượng yêu cầu" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="4" Background="AliceBlue">
+                                    <TextBlock Text="Những thông tin khác" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="6" Background="AliceBlue">
+                                    <TextBlock Text="Forecast" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="8" Background="AliceBlue">
+                                    <TextBlock Text="Ghi chú" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="10" Background="AliceBlue">
+                                    <TextBlock Text="Tập tin đính kèm" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1" Background="Gray"/>
+                                <Grid Grid.Row="3" Background="Gray"/>
+                                <Grid Grid.Row="5" Background="Gray"/>
+                                <Grid Grid.Row="7" Background="Gray"/>
+                                <Grid Grid.Row="9" Background="Gray"/>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <DatePicker Name="dpkStartApprove" SelectedDateChanged="dpkStartApprove_SelectedDateChanged" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></DatePicker>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label>~</Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <DatePicker Name="dpkFinishApprove" SelectedDateChanged="dpkFinishApprove_SelectedDateChanged" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></DatePicker>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <TextBox x:Name="txt_Note_Qty" Text="{Binding Path=qty,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="4">
+                                    <TextBox x:Name="txt_Note_Detail" Text="{Binding Path=remark1,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="6">
+                                    <TextBox x:Name="txt_Note_Forecast" Text="{Binding Path=forecast,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="8">
+                                    <TextBox x:Name="txt_Note_Remark" Text="{Binding Path=remark2,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                                </Grid>
+                                <StackPanel Grid.Column="4" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0">
+                                    <Button Width="100" Height="25" Name="btnAttachFile" Click="btnAttachFile_Click">
+                                        <Image Source="/Image/Edit/attach file.png"></Image>
+                                    </Button>
+                                    <TextBlock x:Name="txb_NameFileUpload" Text="{Binding Path=qtyAttach,Source={x:Static local:SampleBox.box}}" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0"></TextBlock>
+                                    <CheckBox x:Name="ckb_DowloadFile" Content="Dowload File " VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0" Checked="ckb_DowloadFile_Checked" Unchecked="ckb_DowloadFile_Unchecked" Visibility="Hidden"></CheckBox>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Frame x:Name="frameLoading" Visibility="Hidden" NavigationUIVisibility="Hidden"></Frame>
+        </StackPanel>
+    </Grid>
+</Page>

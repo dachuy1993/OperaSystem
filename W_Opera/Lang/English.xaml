@@ -1,0 +1,326 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:W_Opera.Lang">
+
+
+<!--Tâp tin và file-->
+    <sys:String x:Key="FILE">FILE</sys:String>
+    <sys:String x:Key="MENU">MENU</sys:String>
+    <sys:String x:Key="NEW">NEW</sys:String>
+    <sys:String x:Key="OPEN">OPEN</sys:String>
+    <sys:String x:Key="CUT">CUT</sys:String>
+    <sys:String x:Key="EDIT">EDIT</sys:String>
+    <sys:String x:Key="DELETE">DELETE</sys:String>
+    <sys:String x:Key="REMOVE">REMOVE</sys:String>
+    <sys:String x:Key="SAVE">SAVE</sys:String>
+    <sys:String x:Key="FOLDER">FOLDER</sys:String>
+
+    <sys:String x:Key="File">File</sys:String>
+    <sys:String x:Key="Menu">Menu</sys:String>
+    <sys:String x:Key="New">New</sys:String>   
+    <sys:String x:Key="Open">Open</sys:String>
+    <sys:String x:Key="Cut">Cut</sys:String>
+    <sys:String x:Key="Edit">Edit</sys:String>
+    <sys:String x:Key="Delete">Delete</sys:String>
+    <sys:String x:Key="Remove">Remove</sys:String>
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="Foder">Foder</sys:String>
+    
+    <!--Tính toán-->
+
+    <sys:String x:Key="ADD">ADD</sys:String>
+    <sys:String x:Key="SUB">SUB</sys:String>
+    <sys:String x:Key="DIV">DIV</sys:String>
+    <sys:String x:Key="MUL">MUL</sys:String>
+
+    <sys:String x:Key="Add">Add</sys:String>
+    <sys:String x:Key="Sub">Sub</sys:String>
+    <sys:String x:Key="Div">Div</sys:String>
+    <sys:String x:Key="Mul">Mul</sys:String>
+    
+    <!--Hệ thống-->
+    
+    <sys:String x:Key="RUN">RUN</sys:String>
+    <sys:String x:Key="STOP">STOP</sys:String>
+    <sys:String x:Key="START">START</sys:String>
+    <sys:String x:Key="RESET">RESET</sys:String>
+    <sys:String x:Key="POWER">POWER</sys:String>
+    <sys:String x:Key="DEBUG">DEBUG</sys:String>
+    <sys:String x:Key="SLEEP">SLEEP</sys:String>
+    <sys:String x:Key="ERROR">ERROR</sys:String>
+    <sys:String x:Key="BUILD">BUILD</sys:String>
+    <sys:String x:Key="DELAY">DELAY</sys:String>
+    <sys:String x:Key="TIME">TIME</sys:String>
+    <sys:String x:Key="TIMER">TIMER</sys:String>
+   
+
+
+
+    <sys:String x:Key="Run">Run</sys:String>
+    <sys:String x:Key="Stop">Stop</sys:String>
+    <sys:String x:Key="Start">Start</sys:String>
+    <sys:String x:Key="Reset">Reset</sys:String>
+    <sys:String x:Key="Power">Power</sys:String>
+    <sys:String x:Key="Debug">Debug</sys:String>
+    <sys:String x:Key="Sleep">Sleep</sys:String>
+    <sys:String x:Key="Error">Error</sys:String>
+    <sys:String x:Key="Build">Build</sys:String>
+    <sys:String x:Key="Delay">Delay</sys:String>
+    <sys:String x:Key="Time">Time</sys:String>
+    <sys:String x:Key="Timer">Timer</sys:String>
+    
+    <!--Thu ngay thang-->
+    <sys:String x:Key="MONDAY">MONDAY</sys:String>
+    <sys:String x:Key="TUESDAY">TUESDAY</sys:String>
+    <sys:String x:Key="WEDNESDAY">WEDNESDAY</sys:String>
+    <sys:String x:Key="THURSDAY">THURSDAY</sys:String>
+    <sys:String x:Key="FRIDAY">FRIDAY</sys:String>
+    <sys:String x:Key="SATUDAY">SATUDAY</sys:String>
+    <sys:String x:Key="SUNDAY">SUNDAY</sys:String>
+
+    <sys:String x:Key="YEAR">YEAR</sys:String>
+    <sys:String x:Key="MONTH">MONTH</sys:String>
+    <sys:String x:Key="WEEK">WEEK</sys:String>
+    <sys:String x:Key="DATE">DATE</sys:String>
+    <sys:String x:Key="DAY">DAY</sys:String>
+    <sys:String x:Key="HOUR">HOUR</sys:String>
+    <sys:String x:Key="MINUTE">MINUTE</sys:String>
+    <sys:String x:Key="SECOND">SECOND</sys:String>
+    <sys:String x:Key="TICK">TICK</sys:String>
+
+    <sys:String x:Key="Monday">Monday</sys:String>
+    <sys:String x:Key="Tuesday">Tuesday</sys:String>
+    <sys:String x:Key="Wednesday">Wednesday</sys:String>
+    <sys:String x:Key="Thursday">Thursday</sys:String>
+    <sys:String x:Key="Friday">Friday</sys:String>
+    <sys:String x:Key="Satuday">Satuday</sys:String>
+    <sys:String x:Key="Sunday">Sunday</sys:String>
+    <sys:String x:Key="Year">Year</sys:String>
+    <sys:String x:Key="Month">Month</sys:String>
+    <sys:String x:Key="Week">Week</sys:String>
+    <sys:String x:Key="Date">Date</sys:String>
+    <sys:String x:Key="Day">Day</sys:String>
+    <sys:String x:Key="Hour">Hour</sys:String>
+    <sys:String x:Key="Minute">Minute</sys:String>
+    <sys:String x:Key="Second">Second</sys:String>
+    <sys:String x:Key="Tick">Tick</sys:String>
+    
+    <!--Ngôn ngữ máy tính-->
+    <sys:String x:Key="PERSON COMPUTER">PERSON COMPUTER</sys:String>
+    <sys:String x:Key="PC">PC</sys:String>
+    <sys:String x:Key="SERVER">SERVER</sys:String>
+    <sys:String x:Key="SYSTEM">SYSTEM</sys:String>
+    <sys:String x:Key="INTERNET">INTERNET</sys:String>
+    <sys:String x:Key="NETWORK">NETWORK</sys:String>
+    <sys:String x:Key="DEVICE">DEVICE</sys:String>
+    <sys:String x:Key="KEYBOARD">KEYBOARD</sys:String>
+    <sys:String x:Key="MOUSE">MOUSE</sys:String>
+    <sys:String x:Key="BLUETOOTH">BLUETOOTH</sys:String>
+    <sys:String x:Key="WIFI">WIFI</sys:String>
+    <sys:String x:Key="DATA">DATA</sys:String>
+    <sys:String x:Key="MOBIE">MOBIE</sys:String>
+    <sys:String x:Key="PHONE">PHONE</sys:String>
+    <sys:String x:Key="TELL">TELL</sys:String>
+    <sys:String x:Key="FAX">FAX</sys:String>
+    <sys:String x:Key="PRINTER">PRINTER</sys:String>
+    <sys:String x:Key="SPEAK">SPEAK</sys:String>
+    <sys:String x:Key="BATTERY">BATTERY</sys:String>
+    
+    
+    <sys:String x:Key="Person Computer">Person Computer</sys:String>
+    <sys:String x:Key="Pc">Pc</sys:String>
+    <sys:String x:Key="Server">Server</sys:String>
+    <sys:String x:Key="System">System</sys:String>
+    <sys:String x:Key="Internet">Internet</sys:String>
+    <sys:String x:Key="Network">Network</sys:String>
+    <sys:String x:Key="Device">Device</sys:String>
+    <sys:String x:Key="Keyboard">Keyboard</sys:String>
+    <sys:String x:Key="Mouse">Mouse</sys:String>
+    <sys:String x:Key="Bluetooth">Bluetooth</sys:String>
+    <sys:String x:Key="Wifi">Wifi</sys:String>
+    <sys:String x:Key="Data">Data</sys:String>
+    <sys:String x:Key="Mobie">Mobie</sys:String>
+    <sys:String x:Key="Phone">Phone</sys:String>
+    <sys:String x:Key="Tell">Tell</sys:String>
+    <sys:String x:Key="Fax">Fax</sys:String>
+    <sys:String x:Key="Printer">Printer</sys:String>
+    <sys:String x:Key="Speak">Speak</sys:String>
+    <sys:String x:Key="Battery">Battery</sys:String>
+    
+    <!--So dem-->
+
+    <sys:String x:Key="One">One</sys:String>
+    <sys:String x:Key="Two">Two</sys:String>
+    <sys:String x:Key="Three">Three</sys:String>
+    <sys:String x:Key="Four">Four</sys:String>
+    <sys:String x:Key="Five">Five</sys:String>
+    <sys:String x:Key="Six">Six</sys:String>
+    <sys:String x:Key="Seven">Seven</sys:String>
+    <sys:String x:Key="Eight">Eight</sys:String>
+    <sys:String x:Key="Nine">Nine</sys:String>
+    <sys:String x:Key="Ten">Ten</sys:String>
+    
+    <!--Thu ngay thang-->
+
+    <sys:String x:Key="January">January</sys:String>
+    <sys:String x:Key="February">February</sys:String>
+    <sys:String x:Key="March">March</sys:String>
+    <sys:String x:Key="April">April</sys:String>
+    <sys:String x:Key="May">May</sys:String>
+    <sys:String x:Key="June">June</sys:String>
+    <sys:String x:Key="July">July</sys:String>
+    <sys:String x:Key="August">Augurst</sys:String>
+    <sys:String x:Key="September">September</sys:String>
+    <sys:String x:Key="October">October</sys:String>
+    <sys:String x:Key="November">November</sys:String>
+    <sys:String x:Key="December">December</sys:String>
+
+    <sys:String x:Key="Jan">Jan</sys:String>
+    <sys:String x:Key="Feb">Feb</sys:String>
+    <sys:String x:Key="Mar">Mar</sys:String>
+    <sys:String x:Key="Apr">Apr</sys:String>    
+    <sys:String x:Key="Jun">Jun</sys:String>
+    <sys:String x:Key="Jul">Jul</sys:String>
+    <sys:String x:Key="Aug">Aug</sys:String>
+    <sys:String x:Key="Sep">Sep</sys:String>
+    <sys:String x:Key="Oct">Oct</sys:String>
+    <sys:String x:Key="Nov">Nov</sys:String>
+    <sys:String x:Key="Dec">Dec</sys:String>
+
+    <sys:String x:Key="Mon">Mon</sys:String>
+    <sys:String x:Key="Tue">Tue</sys:String>
+    <sys:String x:Key="Wed">Wed</sys:String>
+    <sys:String x:Key="Thu">Thu</sys:String>
+    <sys:String x:Key="Fri">Fri</sys:String>
+    <sys:String x:Key="Sat">Sat</sys:String>
+    <sys:String x:Key="Sun">Sun</sys:String>
+    
+    <!--San xuat-->
+    <sys:String x:Key="Production">Production</sys:String>
+    <sys:String x:Key="Pro">Pro</sys:String>
+    <sys:String x:Key="Bill of Materials">Bill of Materials</sys:String>
+    <sys:String x:Key="BOM">BOM</sys:String>
+    <sys:String x:Key="Cycle Time">Cycle Time</sys:String>
+    <sys:String x:Key="Working Time">Working Time</sys:String>
+    <sys:String x:Key="Work Order">Work Order</sys:String>
+    <sys:String x:Key="Operation">Operation</sys:String>
+    <sys:String x:Key="Manager">Manager</sys:String>
+
+    <sys:String x:Key="OQC">OQC</sys:String>
+    <sys:String x:Key="HR">HR</sys:String>
+    <sys:String x:Key="Quality Control">Quality Control</sys:String>
+    <sys:String x:Key="QC">QC</sys:String>
+
+
+    <sys:String x:Key="Model">Model</sys:String>
+    <sys:String x:Key="ModelCode">ModelCode</sys:String>
+    <sys:String x:Key="Customer">Customer</sys:String>
+    <sys:String x:Key="Customer Code">Customer Code</sys:String>
+    <sys:String x:Key="Position From">Position From</sys:String>
+    <sys:String x:Key="Position To">Position To</sys:String>
+    <sys:String x:Key="Position">Position</sys:String>
+    <sys:String x:Key="Qty">Qty</sys:String>
+    <sys:String x:Key="Unit">Unit</sys:String>
+    <sys:String x:Key="LotNo">LotNo</sys:String>
+    <sys:String x:Key="Login">Login</sys:String>
+    <sys:String x:Key="Logins">Logins</sys:String>
+    <sys:String x:Key="User">User</sys:String>
+    <sys:String x:Key="User Name">User Name</sys:String>
+    <sys:String x:Key="Admin">Admin</sys:String>
+    <sys:String x:Key="Admintrator">Admintrator</sys:String>
+    <sys:String x:Key="PassWord">PassWord</sys:String>
+    <sys:String x:Key="Pass">Pass</sys:String>
+    <sys:String x:Key="Enter">Enter</sys:String>
+    <sys:String x:Key="Input">Input</sys:String>   
+
+
+
+
+
+
+
+
+
+    <!--
+
+        Board of Director (BOD): Hội đồng Quản trị
+        Board Chairman: Chủ tịch Hội đồng Quản trị
+        CEO = Chief of Executive Operator/ Officer: Tổng Giám đốc điều hành
+        Director General: Tổng giám đốc
+        Director: Giám đốc
+        Chief Financial Officer (CFO): Giám đốc tài chính
+        Chief Information Officer (CIO): Giám đốc công nghệ thông tin
+        Founder: Người sáng lập công ty
+        Deputy/ Vice Director: Phó Giám đốc
+        Owner: chủ doanh nghiệp
+        Boss: sếp, ông chủ
+        Manager: người quản lý
+        Head of Division/ Department: Trưởng Bộ phận, Trưởng Phòng
+        Team Leader: Trưởng Nhóm
+        Officer/ Staff: Cán bộ, Nhân viên
+        Receptionist: Nhân viên lễ tân
+        Colleague: Đồng nghiệp
+        Trainee: Nhân viên tập sự
+        Accountant: Nhân viên Kế toán
+        Accounting manager: Trưởng phòng kế toán
+        Chief Operating Officer (COO): Trưởng phòng hoạt động
+        Department manager (Head of Department): Trưởng phòng
+        Executive Officer: Chuyên viên cao cấp
+        Executive: Thành viên Hội đồng quản trị
+        Expert: Chuyên gia
+        Finance manager: Trưởng phòng tài chính
+        Marketing manager: Trưởng phòng Marketing
+        Officer: Nhân viên văn phòng
+        Personnel manager: Trưởng phòng nhân sự
+        President: Chủ tịch Hội đồng quản trị
+        Production manager: Trưởng phòng sản xuất
+        Section manager (Head of Division): Trưởng bộ phận
+        Senior Officer: Nhân viên cao cấp
+        Shareholder: Cổ đông
+        Team leader: Trưởng nhóm
+        Vice president (VP): Phó chủ tịch
+        Worker: Công nhân, người lao động (nói chung)
+        TỪ VỰNG TIẾNG ANH GIAO TIẾP CÔNG SỞ VỀ PHÒNG BAN
+        Còn đây là danh sách các phòng ban thường có ở các công ty, bạn đã biết danh sách các bộ phận này chưa?
+
+        Department: Bộ phận, Phòng/ ban trong công ty
+        Administration Department: Phòng Hành chính tổng hợp
+        Human Resource Department (HR Department): Phòng Nhân sự
+        Training Department: Phòng Đào tạo
+        Marketing Department: Phòng tiếp thị Marketing
+        Sales Department: Phòng Kinh doanh, Phòng bán hàng
+        Pulic Relations Department (PR Department): Phòng Quan hệ công chúng
+        Customer Service Department: Phòng Chăm sóc Khách hàng
+        Product Development Department: Phòng Nghiên cứu và phát triển Sản phẩm.
+        Accounting Department: Phòng Kế toán
+        Audit Department: Phòng Kiểm toán
+        Treasury Department: Phòng Ngân quỹ
+        International Relations Department: Phòng Quan hệ Quốc tế
+        Local Payment Department: Phòng Thanh toán trong nước
+        International Payment Department: Phòng Thanh toán Quốc tế
+        Information Technology Department (IT Department): Phòng Công nghệ thông tin
+    
+        human resources department : bộ phận hành chính nhân sự
+        sales department : Bộ phận mua bán
+        accounting department : Bộ phận kế toán
+        Bussiness Department : Bộ phận kinh doanh
+        production department : Bộ phận sản xuất
+        Quality management department : Bộ phận chất lượng
+        Technical department : Bộ phận công nghệ 
+        development department : Bộ phận phát triển
+        information technology department : Bộ phận công nghệ thông tin
+        parts warehouse : Bộ phận kho
+        materials : nguyên vật liệu
+        materials
+        device/Equiment : Thiết bị
+        Staff : Nhân viên
+        manage : Quản lý
+        Head of department : Trưởng bộ phận
+    -->
+
+
+
+
+
+</ResourceDictionary>

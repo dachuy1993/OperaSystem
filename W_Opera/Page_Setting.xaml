@@ -1,0 +1,222 @@
+﻿<Page x:Class="W_Opera.Page_Setting"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:W_Opera"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_Setting">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.ColumnSpan="3" Grid.Column="0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Label Content="Thời gian" VerticalAlignment="Center"></Label>
+            <DatePicker Name="dp_DateStart" VerticalContentAlignment="Center" Height="30"
+                            SelectedDateChanged="Dp_DateStart_SelectedDateChanged" Margin="5,0,0,0">
+
+            </DatePicker>
+            <TextBlock Text="~" Margin="10,0" VerticalAlignment="Center"></TextBlock>
+            <DatePicker Name="dp_DateFinish" VerticalContentAlignment="Center" Height="30"
+                            SelectedDateChanged="Dp_DateFinish_SelectedDateChanged"></DatePicker>
+            <Label Content="Mã nhân viên" VerticalContentAlignment="Center"></Label>
+            <TextBox x:Name="txt_FilterSample" KeyDown="txt_FilterSample_KeyDown" Width="150" Margin="5" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>     
+            <Button x:Name="btn_FilterSample" Click="btn_FilterSample_Click" Content="Tìm kiếm" Height="30" Width="100"></Button>           
+
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label VerticalAlignment="Center">ID</Label>
+            <TextBox x:Name="txt_UserApprove" Width="140" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+            <Label VerticalAlignment="Center">Name</Label>
+            <TextBox x:Name="txt_NameApprove" Width="140" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+            <Label VerticalAlignment="Center">Department</Label>
+            <TextBox x:Name="txt_DepApprove" Width="150" Height="30" Margin="2"  VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+            <ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource styleButtonEdit}"  
+                                    Background="{Binding BackGroundColor,Converter={StaticResource ColorLightGray_LightGreen}}"
+                                    Click="ButtonTop_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding ImageSource}" Style="{StaticResource styleImageEdit}"></Image>
+                                <TextBlock Text="{Binding ContentButton}" Style="{StaticResource styeTextBlockEdit}"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <Border Grid.Row="2" BorderThickness="1" BorderBrush="Gray" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>                    
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="3" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="5" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="7" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="9" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="11" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="13" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="15" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Row="1" Grid.ColumnSpan="15" Background="Gray"></Grid>
+               
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Create</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="2">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Approve</Label>
+                </Grid>               
+                <Grid Grid.Row="0" Grid.Column="4">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Add</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="6">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Del</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="8">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Edit</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="10">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Save</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="12">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Run</Label>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <CheckBox x:Name="ck_Creat" Checked="ck_Creat_Checked" Unchecked="ck_Creat_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="2">
+                    <CheckBox x:Name="ck_Approve" Checked="ck_Approve_Checked" Unchecked="ck_Approve_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="4">
+                    <CheckBox x:Name="ck_Add" Checked="ck_Add_Checked" Unchecked="ck_Add_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="6">
+                    <CheckBox x:Name="ck_Del" Checked="ck_Del_Checked" Unchecked="ck_Del_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="8">
+                    <CheckBox x:Name="ck_Edit" Checked="ck_Edit_Checked" Unchecked="ck_Edit_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="10">
+                    <CheckBox x:Name="ck_Save" Checked="ck_Save_Checked" Unchecked="ck_Save_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="12">
+                    <CheckBox x:Name="ck_Run" Checked="ck_Run_Checked" Unchecked="ck_Run_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Margin="2">
+            <Grid>
+                <ListView x:Name="lvApproveSample" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
+                              SelectionChanged="lvApproveSample_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <!--<GridViewColumn DisplayMemberBinding="{Binding UserApprove,Mode=OneWay}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Content="Pass" Width="100"></GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>-->
+                            <GridViewColumn Header="User" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <StackPanel Width="100" HorizontalAlignment="Center">
+                                            <Label Content="{Binding UserApprove,Mode=OneWay }" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Label>                                           
+                                        </StackPanel>                                       
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Name" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <StackPanel Width="200" HorizontalAlignment="Center">
+                                            <Label Content="{Binding NameApprove,Mode=OneWay }" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Dep" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <StackPanel Width="100" HorizontalAlignment="Center">
+                                            <Label Content="{Binding DepApprove,Mode=OneWay }" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Creat" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding CreatApprove}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Approve" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding ApproveApprove}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Run" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding ProRun}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Date" Width="300">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="200" HorizontalAlignment="Center">
+                                            <Label Content="{Binding DateApprove}"></Label>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+
+
+    </Grid>
+</Page>
