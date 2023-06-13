@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\C#\8.OperaSystem\V3\W_Opera\obj\Debug\
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\
 W_Opera
 none
 false
 DEBUG;TRACE
-D:\C#\8.OperaSystem\V3\W_Opera\App.xaml
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\App.xaml
 19593041440
-2446108608
+2-538417750
 28-91950103
-33-1929943049
+33107224811
 Login.xaml;Page_FindCode.xaml;Page_LoadingData.xaml;Page_LanguageSetting.xaml;Lang\English.xaml;Lang\Korea.xaml;Lang\VietNam.xaml;Page_RejectSample.xaml;Page_Sample.xaml;Page_Sample_Box.xaml;Page_Sample_Manual.xaml;Page_Setting.xaml;Page_SortCustomer.xaml;MainWindow.xaml;Print.xaml;StyleResourceDictionary.xaml;Window_About.xaml;Window_AttachFile.xaml;Window_Find.xaml;
 
 False

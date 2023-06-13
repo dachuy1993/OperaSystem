@@ -23,6 +23,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Tulpep.NotificationWindow;
+using W_Opera.DAO;
 
 namespace W_Opera
 {
@@ -99,26 +100,41 @@ namespace W_Opera
         {
             IPUser = GetIPAddress();
             List<string> list = new List<string>();
-            using(SqlConnection conn = new SqlConnection(path_sql))
+            List<string> listTime = new List<string>();
+            using (SqlConnection conn = new SqlConnection(path_sql))
             {
                 conn.Open();
                 {
-                    var command = "SELECT TOP 1 UserLogin FROM TblUserIPLogin WHERE IPLogin = '" + IPUser + "' ORDER BY ID Desc";
-                    using (SqlCommand cmd = new SqlCommand(command, conn))
+                   
+                    string query = "SPCheckTimeLogin @IPUser ";
+
+                    DataTable ListTimeLogin = new DataTable();
+                    ListTimeLogin = DataProvider.Instance.ExecuteSP(path_sql, query, new object[] { IPUser });
+                    
+                    foreach(DataRow item in ListTimeLogin.Rows)
                     {
-                        using(IDataReader dr = cmd.ExecuteReader())
-                        {
-                            while(dr.Read())
-                            {
-                                list.Add(dr[0].ToString());
-                                if(dr[0] != null )
-                                {
-                                    UserLogin = dr[0].ToString();
-                                    lbUserLogin.Content = UserLogin;
-                                }    
-                            }    
-                        }    
-                    }    
+                        UserLogin = item[0].ToString();
+                        lbUserLogin.Content = "User:" + UserLogin;
+                    }
+
+                    //var command = "SELECT TOP 1 UserLogin ,DateLogin FROM TblUserIPLogin WHERE IPLogin = '" + IPUser + "' ORDER BY ID Desc";
+                    //using (SqlCommand cmd = new SqlCommand(command, conn))
+                    //{
+                    //    using(IDataReader dr = cmd.ExecuteReader())
+                    //    {
+                    //        while(dr.Read())
+                    //        {
+                    //            list.Add(dr[0].ToString());
+                    //            listTime.Add(dr[1].ToString());
+                    //            if (dr[0] != null)
+                    //            {
+                    //                UserLogin = dr[0].ToString();
+                    //                lbUserLogin.Content = "User:" + UserLogin;
+                                    
+                    //            }    
+                    //        }    
+                    //    }    
+                    //}    
                 }
             }    
 
@@ -248,13 +264,13 @@ namespace W_Opera
                 ImageSource = "Image/Dep/IT.png",
                 BackGroundColor = PinValue.OFF
             });
-            //ListButton_Header.Add(new Helper_DataButton
-            //{
-            //    ID = 8,
-            //    ContentButton = "SETTING",
-            //    ImageSource = "Image/Dep/Setting.png",
-            //    BackGroundColor = PinValue.OFF
-            //});
+            ListButton_Header.Add(new Helper_DataButton
+            {
+                ID = 8,
+                ContentButton = "SETTING",
+                ImageSource = "Image/Dep/Setting.png",
+                BackGroundColor = PinValue.OFF
+            });
             foreach (var button in ListButton_Header)
             {
                 lvButtonTop.Items.Add(button);
@@ -577,7 +593,7 @@ namespace W_Opera
 
         private void btnMainAbout_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Opera System Version : " + Ver, "Version" , MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Opera System Version : " + Ver, "Version" , MessageBoxButton.OK, MessageBoxImage.Information);
             Window_About about = new Window_About();
             about.Show();
         }
