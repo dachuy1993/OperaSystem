@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using OfficeOpenXml.Style;
 using Spire.Xls;
 using System;
@@ -13,6 +14,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +28,8 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
 using Tulpep.NotificationWindow;
+using W_Opera.DAO;
+using ZXing.QrCode.Internal;
 
 namespace W_Opera
 {
@@ -42,9 +46,13 @@ namespace W_Opera
         Helper_TaixinDB_Model ApprovalClickItem = new Helper_TaixinDB_Model();
         Helper_AccessManger access_db = new Helper_AccessManger();
         List<Helper_AccessManger> list_access = new List<Helper_AccessManger>();
+        List<Helper_DataExcel> list_Excel = new List<Helper_DataExcel>();
         PopupNotifier popup = new PopupNotifier();
         DispatcherTimer dt = new DispatcherTimer();
         DataBaseHelper db = new DataBaseHelper();
+        string pathFileExcel = @"TempFile//ExcelFile.xlsx";
+
+        public static string CustomerCode = "";
 
         string date = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
         string str_cbbFilterApprove = "Tìm kiếm All";
@@ -102,6 +110,8 @@ namespace W_Opera
         string str_CUSTCODE;
         string str_CUSTSHORTCODE;
         string str_PAGECNT;
+        string str_PAGETYPEM;
+        string str_PAGETYPED;
         string str_TYPE;
         string str_PAPERGUBUNIn;
         string str_PAPERGUBUNOut;
@@ -181,7 +191,9 @@ namespace W_Opera
             GetDataDeptUser();
             AccessManage();                    
             ColorRowListView(Filter_Sample_All());
-                 
+            
+
+
         }
 
         public void GetDataDeptUser()
@@ -226,7 +238,8 @@ namespace W_Opera
         }
 
 
-       
+        
+
         public void CreatAllButtonEdit()
         {
             lvButtonTop.Items.Clear();
@@ -415,6 +428,8 @@ namespace W_Opera
                                 _sample.CUSTCODE = dr[31].ToString();
                                 _sample.CUSTSHORTCODE = dr[32].ToString();
                                 _sample.PAGECNT = dr[33].ToString();
+                                _sample.PAGETYPEM = dr[101].ToString();
+                                _sample.PAGETYPED = dr[102].ToString();
                                 _sample.SEQ = dr[34].ToString();
                                 _sample.TYPE = dr[35].ToString();
                                 _sample.PAPERGUBUNIn = dr[36].ToString();
@@ -682,6 +697,8 @@ namespace W_Opera
                 str_MODELHEIGHTIn = txt_SizeOut.Text;
                 str_MODELHEIGHTOut = txt_SizeIn.Text;
                 str_PAGECNT = txt_PaperNumber.Text;
+                str_PAGETYPEM = cbbTypeCertification.Text;
+                str_PAGETYPED = cbbTypeDetail.Text;
                 str_BCOLORCODEIn = txt_ColorOut.Text;
                 str_PHCOUNTIn = txt_RatioOut.Text;
                 str_TOTALPAGEIN = txt_foldIn.Text;
@@ -741,6 +758,8 @@ namespace W_Opera
                 SamplePaper.PaperOut.CUSTCODE = "";
                 SamplePaper.PaperOut.CUSTSHORTCODE = "";
                 SamplePaper.PaperOut.PAGECNT = "";
+                SamplePaper.PaperOut.PAGETYPEM = "";
+                SamplePaper.PaperOut.PAGETYPED = "";
                 SamplePaper.PaperOut.SEQ = "";
                 SamplePaper.PaperOut.TYPE = "";
                 SamplePaper.PaperOut.PAPERGUBUNOut = "";
@@ -792,6 +811,8 @@ namespace W_Opera
                 SamplePaper.PaperIn.CUSTCODE = "";
                 SamplePaper.PaperIn.CUSTSHORTCODE = "";
                 SamplePaper.PaperIn.PAGECNT = "";
+                SamplePaper.PaperIn.PAGETYPEM = "";
+                SamplePaper.PaperIn.PAGETYPED = "";
                 SamplePaper.PaperIn.SEQ = "";
                 SamplePaper.PaperIn.TYPE = "";
                 SamplePaper.PaperIn.PAPERGUBUNIn = "";
@@ -994,7 +1015,7 @@ namespace W_Opera
                         //var command = "UPDATE SAMPLEAPPROVE SET model = '" + model + "',modelcode = '" + modelcode + "',customer = '" + customer + "',ver = '" + ver + "'" +
                         //    ",sx = '" + sx + "',cl = '" + cl + "',rd = '" + rd + "',kd = '" + kd + "' WHERE ID = '"+ApproverClickItem.ID+"'";                        
                         var command = "UPDATE tbSampleManual SET custmodelcode = '" + str_CUSTMODELCODE + "',custpartcode = '"
-                            + str_CUSTPARTCODE + "',cust_gb = '" + str_CUST_GB + "',version = N'" + str_VERSION + "',versionup=N'" + str_VERSIONUP+ "',papernameOut=N'" + txt_PaperIn.Text+ "',heightOut=N'" + txt_SizeIn.Text+ "',phcountOut=N'" + txt_RatioIn.Text+ "',papernameFullOut=N'" + txt_PaperNameIn.Text+ "',papernameIn=N'" + txt_PaperOut.Text+ "',heightIn=N'" + txt_SizeOut.Text+ "',phcountIn=N'" + txt_RatioOut.Text+ "',papernameFullIn=N'" + txt_PaperNameOut.Text+ "',modelspecOut=N'" + txt_FullSize.Text+ "',pagecnt=N'" + txt_PaperNumber.Text+ "',process=N'"+txt_ProcessWork.Text+ "',bcolorcodeOut=N'" + txt_ColorIn.Text+ "',bcolorcodeIn=N'" + txt_ColorOut.Text+ "',totalpageOut=N'" + txt_foldOut.Text+ "',totalpageIn=N'" + txt_foldIn.Text+ "',remark=N'"+txt_Note2.Text+ "',remarkdif=N'"+txt_Note1.Text+"',Updempcode = '" + str_INSEMPCODE+ "',UPddt ='" + dateApproval + "', reject='0'" +
+                            + str_CUSTPARTCODE + "',cust_gb = '" + str_CUST_GB + "',version = N'" + str_VERSION + "',versionup=N'" + str_VERSIONUP+ "',papernameOut=N'" + txt_PaperIn.Text+ "',heightOut=N'" + txt_SizeIn.Text+ "',phcountOut=N'" + txt_RatioIn.Text+ "',papernameFullOut=N'" + txt_PaperNameIn.Text+ "',papernameIn=N'" + txt_PaperOut.Text+ "',heightIn=N'" + txt_SizeOut.Text+ "',phcountIn=N'" + txt_RatioOut.Text+ "',papernameFullIn=N'" + txt_PaperNameOut.Text+ "',modelspecOut=N'" + txt_FullSize.Text+ "',pagecnt=N'" + txt_PaperNumber.Text+ "',pagetypem=N'" + cbbTypeCertification.Text + "',pagetyped=N'" + cbbTypeDetail.Text + "',process=N'"+txt_ProcessWork.Text+ "',bcolorcodeOut=N'" + txt_ColorIn.Text+ "',bcolorcodeIn=N'" + txt_ColorOut.Text+ "',totalpageOut=N'" + txt_foldOut.Text+ "',totalpageIn=N'" + txt_foldIn.Text+ "',remark=N'"+txt_Note2.Text+ "',remarkdif=N'"+txt_Note1.Text+"',Updempcode = '" + str_INSEMPCODE+ "',UPddt ='" + dateApproval + "', reject='0'" +
                            " WHERE SAMNO = '" + ApprovalClickItem.IDNumber + "'";
                         using (SqlCommand cmd = new SqlCommand(command, conn))
                         {
@@ -1084,7 +1105,7 @@ namespace W_Opera
                         "frontbcolorOut,backbcolorOut,bcolorcodeOut,phcountOut,versionup,papernameIn,papernameFullIn," +
                         "papernameOut,papernameFullOut,dep_mar,dep_pro,dep_qc,dep_rnd,dep_pur,totalpageIn," +
                         "foldingpageIn,tayIn,taypageIn,totalpageOut,foldingpageOut,tayOut,taypageOut,qtyRequest,Remark," +
-                        "RemarkDif,process,qtyAttach,reject,depCreate,Insempcode,Insdt,Sadt,Fadt)" +
+                        "RemarkDif,process,qtyAttach,reject,depCreate,Insempcode,Insdt,Sadt,Fadt,pagetypem,pagetyped)" +
                        " VALUES (N'" + str_CMPCODE + "',N'" + str_BIZDIV + "',N'" + str_SAMNO + "',N'" + str_MODELCODE + "',N'" + str_MODELNAME + "',N'"
                     + str_APPLYDT + "',N'" + str_VERSION + "',N'" + str_CUSTPARTCODE + "',N'" + str_CUSTPART_VERSION + "',N'"
                     + str_CUSTPARTCODE_VER + "',N'" + str_CUSTMODELCODE + "',N'" + str_REPMODELCODE + "',N'" + str_USEFLAG + "',N'"
@@ -1103,7 +1124,7 @@ namespace W_Opera
                     + str_MA + "',N'" + str_SX + "',N'" + str_CL + "',N'" + str_RD + "',N'" + str_KD + "',N'" + str_TOTALPAGEIN + "',N'"
                     + str_FOLDINGPAGEIN + "',N'" + str_TAYIN + "',N'" + str_TAYPAGEIN + "',N'" + str_TOTALPAGEOUT + "',N'" + str_FOLDINGPAGEOUT + "',N'"
                     + str_TAYOUT + "',N'" + str_TAYPAGEOUT + "',N'" + str_QTYREQUEST + "',N'" + str_NOTE2 + "',N'" + str_NOTE1 + "',N'" + str_PROCESSWORDK + "',N'"
-                    + Window_AttachFile.listAttachFile.Count.ToString() + "',N'0',N'" + str_depCreate + "',N'" + str_INSEMPCODE + "',N'" + dateInput + "',N'" + dateStart + "',N'" + dateFinish + "')";
+                    + Window_AttachFile.listAttachFile.Count.ToString() + "',N'0',N'" + str_depCreate + "',N'" + str_INSEMPCODE + "',N'" + dateInput + "',N'" + dateStart + "',N'" + dateFinish + "',N'" + str_PAGETYPEM +"',N'" + str_PAGETYPED + "')";
                     }
                     else if (str_FilterProduct == "UnitBox")
                     {
@@ -1118,7 +1139,7 @@ namespace W_Opera
                         "frontbcolorOut,backbcolorOut,bcolorcodeOut,phcountOut,versionup,papernameIn,papernameFullIn," +
                         "papernameOut,papernameFullOut,dep_mar,dep_pro,dep_qc,dep_rnd,dep_pur,totalpageIn," +
                         "foldingpageIn,tayIn,taypageIn,totalpageOut,foldingpageOut,tayOut,taypageOut,qtyRequest,Remark," +
-                        "RemarkDif,etc1,etc2,Insempcode,Insdt,Sadt,Fadt)" +
+                        "RemarkDif,etc1,etc2,Insempcode,Insdt,Sadt,Fadt,pagetypem,pagetyped)" +
                        " VALUES (N'" + str_CMPCODE + "',N'" + str_BIZDIV + "',N'" + str_SAMNO + "',N'" + txt_FilterBox.Text.Trim() + "',N'" + txt_FilterBox.Text.Trim() + "',N'"
                     + str_APPLYDT + "',N'" + str_VERSION + "',N'" + txt_FilterBox.Text + "',N'" + str_CUSTPART_VERSION + "',N'"
                     + txt_FilterBox.Text.Trim() + "',N'" + str_CUSTMODELCODE + "',N'" + str_REPMODELCODE + "',N'" + str_USEFLAG + "',N'"
@@ -1137,7 +1158,7 @@ namespace W_Opera
                     + str_MA + "',N'" + str_SX + "',N'" + str_CL + "',N'" + str_RD + "',N'" + str_KD + "',N'" + str_TOTALPAGEIN + "',N'"
                     + str_FOLDINGPAGEIN + "',N'" + str_TAYIN + "',N'" + str_TAYPAGEIN + "',N'" + str_TOTALPAGEOUT + "',N'" + str_FOLDINGPAGEOUT + "',N'"
                     + str_TAYOUT + "',N'" + str_TAYPAGEOUT + "',N'" + str_QTYREQUEST + "',N'" + str_NOTE2 + "',N'" + str_NOTE1 + "',N'" + str_PROCESSWORDK + "',N'"
-                    + str_FilterProduct + "',N'" + str_INSEMPCODE + "',N'" + dateInput + "',N'" + dateStart + "',N'" + dateFinish + "')";
+                    + str_FilterProduct + "',N'" + str_INSEMPCODE + "',N'" + dateInput + "',N'" + dateStart + "',N'" + dateFinish + "',N'" + str_PAGETYPEM + "',N'" + str_PAGETYPED + "')";
                     }
 
                     //if (str_FilterProduct == "Manual")
@@ -1609,6 +1630,8 @@ namespace W_Opera
                 SamplePaper.PaperOut.CUSTCODE = clickItem.CUSTCODE;
                 SamplePaper.PaperOut.CUSTSHORTCODE = clickItem.CUSTSHORTCODE;
                 SamplePaper.PaperOut.PAGECNT = clickItem.PAGECNT;
+                SamplePaper.PaperOut.PAGETYPEM = clickItem.PAGETYPEM;
+                SamplePaper.PaperOut.PAGETYPED = clickItem.PAGETYPED;   
                 SamplePaper.PaperOut.SEQ = clickItem.SEQ;
                 SamplePaper.PaperOut.TYPE = clickItem.TYPE;
                 SamplePaper.PaperOut.PAPERGUBUNOut = clickItem.PAPERGUBUNOut;
@@ -1673,6 +1696,8 @@ namespace W_Opera
                 SamplePaper.PaperIn.CUSTCODE = clickItem.CUSTCODE;
                 SamplePaper.PaperIn.CUSTSHORTCODE = clickItem.CUSTSHORTCODE;
                 SamplePaper.PaperIn.PAGECNT = clickItem.PAGECNT;
+                SamplePaper.PaperIn.PAGETYPEM = clickItem.PAGETYPEM;
+                SamplePaper.PaperIn.PAGETYPED = clickItem.PAGETYPED;
                 SamplePaper.PaperIn.SEQ = clickItem.SEQ;
                 SamplePaper.PaperIn.TYPE = clickItem.TYPE;
                 SamplePaper.PaperIn.PAPERGUBUNIn = clickItem.PAPERGUBUNIn;
@@ -1741,6 +1766,8 @@ namespace W_Opera
                 SamplePaper.PaperIn.CUSTCODE = "";
                 SamplePaper.PaperIn.CUSTSHORTCODE = "";
                 SamplePaper.PaperIn.PAGECNT = "";
+                SamplePaper.PaperIn.PAGETYPEM = "";
+                SamplePaper.PaperIn.PAGETYPED = "";
                 SamplePaper.PaperIn.SEQ = "";
                 SamplePaper.PaperIn.TYPE = "";
                 SamplePaper.PaperIn.PAPERGUBUNIn = "";
@@ -1789,6 +1816,8 @@ namespace W_Opera
                 SamplePaper.PaperOut.CUSTCODE = "";
                 SamplePaper.PaperOut.CUSTSHORTCODE = "";
                 SamplePaper.PaperOut.PAGECNT = "";
+                SamplePaper.PaperOut.PAGETYPEM = "";
+                SamplePaper.PaperOut.PAGETYPED = "";
                 SamplePaper.PaperOut.SEQ = "";
                 SamplePaper.PaperOut.TYPE = "";
                 SamplePaper.PaperOut.PAPERGUBUNOut = "";
@@ -1848,6 +1877,8 @@ namespace W_Opera
                         SamplePaper.PaperOut.CUSTCODE = clickItem.CUSTCODE;
                         SamplePaper.PaperOut.CUSTSHORTCODE = clickItem.CUSTSHORTCODE;
                         SamplePaper.PaperOut.PAGECNT = clickItem.PAGECNT;
+                        SamplePaper.PaperOut.PAGETYPEM = clickItem.PAGETYPEM;
+                        SamplePaper.PaperOut.PAGETYPED = clickItem.PAGETYPED;
                         SamplePaper.PaperOut.SEQ = clickItem.SEQ;
                         SamplePaper.PaperOut.TYPE = clickItem.TYPE;
                         SamplePaper.PaperOut.PAPERGUBUNOut = clickItem.PAPERGUBUNOut;
@@ -1945,6 +1976,8 @@ namespace W_Opera
                         SamplePaper.PaperIn.CUSTCODE = clickItem.CUSTCODE;
                         SamplePaper.PaperIn.CUSTSHORTCODE = clickItem.CUSTSHORTCODE;
                         SamplePaper.PaperIn.PAGECNT = clickItem.PAGECNT;
+                        SamplePaper.PaperIn.PAGETYPEM = clickItem.PAGETYPEM;
+                        SamplePaper.PaperIn.PAGETYPED = clickItem.PAGETYPED;
                         SamplePaper.PaperIn.SEQ = clickItem.SEQ;
                         SamplePaper.PaperIn.TYPE = clickItem.TYPE;
                         SamplePaper.PaperIn.PAPERGUBUNIn = clickItem.PAPERGUBUNIn;
@@ -2016,6 +2049,8 @@ namespace W_Opera
                     SamplePaper.PaperIn.CUSTCODE = "";
                     SamplePaper.PaperIn.CUSTSHORTCODE = "";
                     SamplePaper.PaperIn.PAGECNT = "";
+                    SamplePaper.PaperIn.PAGETYPEM = "";
+                    SamplePaper.PaperIn.PAGETYPED = "";
                     SamplePaper.PaperIn.SEQ = "";
                     SamplePaper.PaperIn.TYPE = "";
                     SamplePaper.PaperIn.PAPERGUBUNIn = "";
@@ -2361,6 +2396,8 @@ namespace W_Opera
                     DataItemClick(clickItem);
                     dpkStartApprove.SelectedDate = DateTime.Parse(clickItem.DATESTARTAPPROVE.ToString());
                     dpkFinishApprove.SelectedDate = DateTime.Parse(clickItem.DATEFINISHAPPROVE.ToString());
+                    cbbTypeCertification.Text = clickItem.PAGETYPEM;
+                    cbbTypeDetail.Text = clickItem.PAGETYPED;
                     ApprovalClickItem = clickItem;
                     //ma
                     if (ApprovalClickItem.MA == "LightGray")
@@ -2591,8 +2628,15 @@ namespace W_Opera
             
         }
 
-        private void btnSearchCustomerSample_Click(object sender, RoutedEventArgs e)
+        public void btnSearchCustomerSample_Click(object sender, RoutedEventArgs e)
         {
+            int checklenfind = txt_CustomerCode.Text.Length;
+            if (checklenfind < 6)
+            {
+                MessageBox.Show("Mời bạn nhập ít nhất 6 ký tự để tìm kiếm", "Thông báo", MessageBoxButton.OK);
+                return;
+            }
+            CustomerCode = txt_CustomerCode.Text;
             Page_SortCustomer page_SortCustomer = new Page_SortCustomer();
             page_SortCustomer.Show();
 
@@ -2630,6 +2674,8 @@ namespace W_Opera
 
         private void cbb_BoxUnit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+               
             var click = sender as ComboBox;
             var clickItem = click.SelectedItem as Helper_TaixinDB_Model;
             if (clickItem != null)
@@ -2853,6 +2899,328 @@ namespace W_Opera
             if (clickItem != null)
             {
                 clickItem.checkXLS = "False";
+            }
+        }
+        List<Helper_Combobox> _tempRoom = new List<Helper_Combobox>();
+        List<Helper_Combobox> _tempTeam = new List<Helper_Combobox>();
+        string depatment = "";
+        private void cbbTypeCertification_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _tempRoom.Clear();
+            _tempTeam.Clear();
+            var click = sender as ComboBox;
+            var clickItem = click.SelectedItem as ComboBoxItem;
+            if (clickItem != null)
+            {
+                depatment = clickItem.Content.ToString();
+                string code = "";
+                switch (depatment)
+                {
+                    case "":
+                        {
+                            code = "000";
+                            break;
+                        }
+                    case "FSC":
+                        {
+                            code = "002";
+                            break;
+                        }
+                    case "PEFC":
+                        {
+                            code = "003";
+                            break;
+                        }
+
+                }
+
+                //if (depatment != "")
+                //{
+                    cbbTypeDetail.ClearValue(ComboBox.ItemsSourceProperty);
+
+                    _tempRoom = MainWindow._ListTypeD.Where(X => X.code == code).ToList();
+                    //_tempRoom.Add(new Helper_Combobox { Name_loc = "", code = "000" });
+                    cbbTypeDetail.ItemsSource = _tempRoom.OrderBy(x => x.code).ToList();
+                    cbbTypeDetail.SelectedIndex = 0;
+                //}
+            }
+        }
+
+        private void btnExportExcel_Click(object sender, RoutedEventArgs e)
+        {
+            Process_GetDataExcel();
+            Process_ExportExcel();
+        }
+
+        public void Process_GetDataExcel()
+        {
+            string query = "SPGetDataExcelManul @date";
+            string date = "";
+            var listdata = DataProvider.Instance.executeQuery(path_sql, query, new object[] { date });
+            
+            foreach(DataRow row in listdata.Rows)
+            {
+                Helper_DataExcel Model = new Helper_DataExcel();
+                Model.ModelCode = row["ModelCode"].ToString();
+                Model.ModelName = row["ModelName"].ToString();
+                Model.Ver = row["Ver"].ToString();
+                Model.ItemNo = row["ItemNo"].ToString();
+                Model.CustNm = row["CustNm"].ToString();
+                Model.Status = row["Status"].ToString();
+                Model.PurcharNm = row["PurcharNm"].ToString();
+                Model.Datetime = row["Date"].ToString();
+                list_Excel.Add(Model);
+            }    
+        }
+
+        public async void Process_ExportExcel()
+        {
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                await Task.Run(() =>
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        sfd.ShowDialog();
+                        if (sfd.FileName == "")
+                        {
+                                MessageBox.Show("Vui lòng chọn vị trí lưu tập tin", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                    }, System.Windows.Threading.DispatcherPriority.ContextIdle);
+                });
+                await Task.Run(() =>
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (sfd.FileName != "")
+                        {
+                            Page_LoadingData page_Loading = new Page_LoadingData();
+                            stackLoading.Visibility = Visibility.Visible;
+                            frameLoading.Navigate(page_Loading);
+                        }
+                    }, System.Windows.Threading.DispatcherPriority.ContextIdle);
+                });
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(500);
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (sfd.FileName != "")
+                        {
+                            CreatListExcel();
+                            File.Copy(pathFileExcel, sfd.FileName + ".xlsx");
+                        }
+                        stackLoading.Visibility = Visibility.Hidden;
+                    }, System.Windows.Threading.DispatcherPriority.ContextIdle);
+                });
+            }
+            catch (Exception)
+            {
+                    MessageBox.Show("Tên file trùng với một file có sẵn.\nVui lòng nhập một tên mới", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void CreatListExcel()
+        {
+            try
+            {
+                using (ExcelPackage p = new ExcelPackage())
+                {
+                    int numberRow = 0;
+                    foreach (var item in list_Excel)
+                    {
+                        if (item.ModelCode != "")
+                        {
+                            numberRow++;
+                        }
+                    }
+
+                    numberRow = numberRow + 5;
+                    p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                    p.Workbook.Properties.Title = "Danh sách Modelcode";
+                    p.Workbook.Worksheets.Add("Sheet1");
+                    ExcelWorksheet ws = p.Workbook.Worksheets[1];
+                    ws.Name = "Sheet1";
+
+                    //Cột 1 
+                    ws.Column(1).Width = 5;//stt
+                    ws.Column(2).Width = 15;//Model Code
+                    ws.Column(3).Width = 30;//Model Name
+                    ws.Column(4).Width = 10;//Ver
+                    ws.Column(5).Width = 20;//Mã hàng
+                    ws.Column(6).Width = 30;//Khách hàng
+                    ws.Column(7).Width = 15;//Tình trạng
+                    ws.Column(8).Width = 15;//Người yêu cầu
+                    ws.Column(9).Width = 30;
+
+                    ws.Row(1).Height = 10;
+                    ws.Row(2).Height = 40;
+                    ws.Row(3).Height = 20;
+                    ws.Row(4).Height = 25;
+
+
+                    //căn hàng và cột cho tất cả các ô                 
+
+
+                    for (int i = 1; i < numberRow; i++)
+                    {
+                        string strCell = "A" + i.ToString() + ":" + "J" + i.ToString();
+                        var cell = ws.Cells[strCell];
+                        var border = cell.Style.Border;
+                        border.Bottom.Style =
+                        border.Top.Style =
+                        border.Left.Style =
+                        border.Right.Style = ExcelBorderStyle.Thin;
+                        cell.Style.WrapText = true;
+                        cell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    }
+                    for (int i = 5; i < numberRow; i++)
+                    {
+                        string strCell = "A" + i.ToString() + ":" + "J" + i.ToString();
+                        var cell = ws.Cells[strCell];
+                        ws.Row(i).Height = 25;
+                        cell.Style.Font.Size = 11;
+                        cell.Style.Font.Bold = false;
+
+                        string strCell1 = "A" + i.ToString() + ":" + "A" + i.ToString();
+                        ws.Cells[strCell1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell2 = "B" + i.ToString() + ":" + "B" + i.ToString();
+                        ws.Cells[strCell2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell3 = "C" + i.ToString() + ":" + "C" + i.ToString();
+                        ws.Cells[strCell3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell4 = "D" + i.ToString() + ":" + "D" + i.ToString();
+                        ws.Cells[strCell4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell5 = "E" + i.ToString() + ":" + "E" + i.ToString();
+                        ws.Cells[strCell5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell6 = "F" + i.ToString() + ":" + "F" + i.ToString();
+                        ws.Cells[strCell6].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell7 = "G" + i.ToString() + ":" + "G" + i.ToString();
+                        ws.Cells[strCell7].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell8 = "H" + i.ToString() + ":" + "H" + i.ToString();
+                        ws.Cells[strCell8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        //--
+                        string strCell9 = "I" + i.ToString() + ":" + "I" + i.ToString();
+                        ws.Cells[strCell9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    }
+
+                    for (int i = 5; i < numberRow; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            string strCell = "A" + i.ToString() + ":" + "I" + i.ToString();
+                            var cell = ws.Cells[strCell];
+                            var fill = cell.Style.Fill;
+                            fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            fill.BackgroundColor.SetColor(System.Drawing.Color.AliceBlue);
+                        }
+                    }
+
+                    //Bôi den backgroud
+                    //
+
+                    ws.Cells["A2:J2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    ws.Cells["A2:J2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Azure);
+
+                    ws.Cells["A4:J4"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    ws.Cells["A4:J4"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Ivory);
+
+
+                    ws.Cells["A1:A1"].Value = "";
+                    ws.Cells["A1:J1"].Merge = true;
+                    ws.Cells["A1:A1"].Style.Font.Size = 25;
+                    ws.Cells["A1:A1"].Style.Font.Bold = true;
+
+
+                    ws.Cells["A2:A2"].Value = "DANH SÁCH MODELCODE";
+                    ws.Cells["A2:J2"].Merge = true;
+                    ws.Cells["A2:A2"].Style.Font.Size = 22;
+                    ws.Cells["A2:A2"].Style.Font.Bold = true;
+
+                    //Ngày SX
+                    ws.Cells["A3:A3"].Value = "Ngày : " + DateTime.Now.ToString("dd/MM/yyyy") + "  Số lượng : " + (numberRow - 5);
+                    ws.Cells["A3:T3"].Merge = true;
+                    ws.Cells["A3:A3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    ws.Cells["A3:A3"].Style.Font.Bold = true;
+
+                    //Head                  
+                    ws.Cells["A4:J4"].Style.Font.Size = 12;
+                    ws.Cells["A4:J4"].Style.Font.Bold = true;
+                    ws.Cells["A4:A4"].Value = "STT";
+                    ws.Cells["B4:B4"].Value = "Model Code";
+                    ws.Cells["C4:C4"].Value = "Model Name";
+                    ws.Cells["D4:D4"].Value = "Ver";
+                    ws.Cells["E4:E4"].Value = "Mã hàng";
+                    ws.Cells["F4:F4"].Value = "Khách hàng";
+                    ws.Cells["G4:G4"].Value = "Tình trạng";
+                    ws.Cells["H4:H4"].Value = "Người yêu cầu";
+                    ws.Cells["I4:I4"].Value = "Ngày yêu cầu";
+
+                    int index = 4;
+                    int stt = 0;
+
+                    foreach (var item in list_Excel)
+                    {
+                        if (item.ModelCode != "")
+                        {
+                            index++;
+                            stt++;
+                            //--
+                            string strCell1 = "A" + index.ToString() + ":" + "A" + index.ToString();
+                            ws.Cells[strCell1].Value = stt;
+                            //--
+                            string strCell2 = "B" + index.ToString() + ":" + "B" + index.ToString();
+                            ws.Cells[strCell2].Value = item.ModelCode;
+                            //--
+                            string strCell3 = "C" + index.ToString() + ":" + "C" + index.ToString();
+                            ws.Cells[strCell3].Value = item.ModelName;
+                            //--
+                            string strCell4 = "D" + index.ToString() + ":" + "D" + index.ToString();
+                            ws.Cells[strCell4].Value = item.Ver;
+                            //--
+                            string strCell5 = "E" + index.ToString() + ":" + "E" + index.ToString();
+                            ws.Cells[strCell5].Value = item.ItemNo;
+                            //--
+                            string strCell6 = "F" + index.ToString() + ":" + "F" + index.ToString();
+                            ws.Cells[strCell6].Value = item.CustNm;
+                            //--
+                            string strCell7 = "G" + index.ToString() + ":" + "G" + index.ToString();
+                            ws.Cells[strCell7].Value = item.Status;
+                            //--
+                            string strCell8 = "H" + index.ToString() + ":" + "H" + index.ToString();
+                            ws.Cells[strCell8].Value = item.PurcharNm;
+                            //--
+                            string strCell9 = "I" + index.ToString() + ":" + "I" + index.ToString();
+                            ws.Cells[strCell9].Value = item.Datetime;
+                        }
+                    }
+                    ws.PrinterSettings.PaperSize = ePaperSize.A4;
+                    ws.PrinterSettings.Orientation = eOrientation.Landscape;
+                    ws.PrinterSettings.FitToPage = true;
+                    ws.Cells["A4:I4"].AutoFilter = true;
+                    ws.PrinterSettings.TopMargin = Decimal.Parse("0");
+                    ws.PrinterSettings.LeftMargin = Decimal.Parse("0.25");
+                    ws.PrinterSettings.BottomMargin = Decimal.Parse("0.25");
+                    ws.PrinterSettings.RightMargin = Decimal.Parse("0.25");
+                    File.Delete(pathFileExcel);
+                    Byte[] bin = p.GetAsByteArray();
+                    File.WriteAllBytes(pathFileExcel, bin);
+                    //exportFileExcel = false;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "CreatListExcel", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

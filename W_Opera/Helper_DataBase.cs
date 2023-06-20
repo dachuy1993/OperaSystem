@@ -1790,6 +1790,8 @@ namespace DataHelper
         private string _custcode;
         private string _custshortcode;
         private string _pagecnt;
+        private string _pagetypeM;
+        private string _pagetypeD;
         private string _insempcode;
 
 
@@ -1939,6 +1941,9 @@ namespace DataHelper
         public string CUSTCODE { get { return _custcode; } set { if (_custcode != value) { _custcode = value; NotifyPropertyChanged("CUSTCODE"); } } }
         public string CUSTSHORTCODE { get { return _custshortcode; } set { if (_custshortcode != value) { _custshortcode = value; NotifyPropertyChanged("CUSTSHORTCODE"); } } }
         public string PAGECNT { get { return _pagecnt; } set { if (_pagecnt != value) { _pagecnt = value; NotifyPropertyChanged("PAGECNT"); } } }
+        public string PAGETYPEM { get { return _pagetypeM; } set { if (_pagetypeM != value) { _pagetypeM = value; NotifyPropertyChanged("PAGETYPEM"); } } }
+        public string PAGETYPED { get { return _pagetypeD; } set { if (_pagetypeD != value) { _pagetypeD = value; NotifyPropertyChanged("PAGETYPED"); } } }
+
         public string VERSIONUP { get { return _versionup; } set { if (_versionup != value) { _versionup = value; NotifyPropertyChanged("VERSIONUP"); } } }
         public string INSEMPCODE { get { return _insempcode; } set { if (_insempcode != value) { _insempcode = value; NotifyPropertyChanged("INSEMPCODE"); } } }
 

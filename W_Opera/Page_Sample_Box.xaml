@@ -287,7 +287,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
-                                <Label Content="SPEC" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>                              
+                                <Label Content="SPEC" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
                             </Grid>
                             <Grid Grid.Column="1" Grid.RowSpan="3" Background="Gray"/>
                             <Grid Grid.Column="3" Grid.RowSpan="3" Background="Gray"/>
@@ -323,7 +323,11 @@
                                     </ComboBox >
                                 </Grid>
                                 <Grid Grid.Row="4">
-                                    <ComboBox ItemsSource="{Binding ListSpecPaper}" SelectedIndex="{Binding Path=paperindex2,Source={x:Static local:SampleBox.box}}" x:Name="cbb_SpecPaper2" SelectionChanged="cbb_SpecPaper2_SelectionChanged">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="108*"/>
+                                        <ColumnDefinition Width="143*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox ItemsSource="{Binding ListSpecPaper}" SelectedIndex="{Binding Path=paperindex2,Source={x:Static local:SampleBox.box}}" x:Name="cbb_SpecPaper2" SelectionChanged="cbb_SpecPaper2_SelectionChanged" Grid.ColumnSpan="2">
                                     </ComboBox >
                                 </Grid>
                                 <Grid Grid.Row="8">

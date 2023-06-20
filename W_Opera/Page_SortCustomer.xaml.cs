@@ -31,15 +31,19 @@ namespace W_Opera
 
         //public string path_sql = "Data Source=(local);Initial Catalog=taixin_db;Integrated Security=True;";
         public string nameTableModelCode = "TMSTMODEL";
+        public string strCustomerSort = "";
         List<Helper_TaixinDB_Model> listModelCode = new List<Helper_TaixinDB_Model>();
         List<Helper_TaixinDB_Model> listModelCodeSearch = new List<Helper_TaixinDB_Model>();
+        //Page_Sample_Manual Page_Sample_Manual = new Page_Sample_Manual();
         
         private void ListCustomerPartCode_Loaded(object sender, RoutedEventArgs e)
         {
             path_sql = MainWindow.path_sql;
             try
             {
-                string strCustomerSort = "";
+                
+
+                strCustomerSort = Page_Sample_Manual.CustomerCode;
                 lvCustomerPartCode.Items.Clear();
                 DataBaseHelper db = new DataBaseHelper();               
                 listModelCode = db.Read_TaxinDb_ModelCode(path_sql, nameTableModelCode, "custpartcode",strCustomerSort);

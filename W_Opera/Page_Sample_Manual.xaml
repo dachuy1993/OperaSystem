@@ -51,7 +51,12 @@
                 <Button x:Name="btn_FilterSample" Click="btn_FilterSample_Click" Content="Tìm kiếm" Height="30" Width="100" Margin="5"></Button>
                 <Button x:Name="btn_Reject" Click="btn_Reject_Click" Content="Reject" Height="30" Width="100" Margin="5"></Button>
                 <CheckBox VerticalAlignment="Center" Content="Test" Name="ckbTest" Checked="ckbTest_Checked" Unchecked="ckbTest_Unchecked" Visibility="Hidden"></CheckBox>
-
+                <Button x:Name="btnExportExcel" Width="100" Margin="3,0" Click="btnExportExcel_Click"  Visibility="Hidden">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Image/Edit/xls-export.png" Height="20" Width="20"></Image>
+                        <Label Content="Excel All" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
         </Grid>
@@ -444,8 +449,51 @@
                         <Grid Grid.Column="4" Grid.Row="8">
                             <TextBox x:Name="txt_FullSize" Text="{Binding Path=MODELSPECOut,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
                         </Grid>
-                        <Grid Grid.Column="4" Grid.Row="10">
-                            <TextBox x:Name="txt_PaperNumber" Text="{Binding Path=PAGECNT,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" VerticalAlignment="Center" BorderThickness="0"></TextBox>
+                        <Grid Grid.Column="4"  Grid.Row="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="0.5"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1" Background="Gray"></Grid>
+                            <Grid Grid.Column="3" Background="Gray"></Grid>
+                            <Grid Grid.Column="5" Background="Gray"></Grid>
+                            <Grid Grid.Column="7" Background="Gray"></Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="7*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="txt_PaperNumber" Text="{Binding Path=PAGECNT,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" VerticalAlignment="Center" BorderThickness="0" Grid.ColumnSpan="2"></TextBox>
+                            </Grid>
+                            <Grid Grid.Column="2" Background="AliceBlue">
+                                <TextBlock Text="Loại chứng nhận" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,11,0"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <ComboBox x:Name="cbbTypeCertification" VerticalAlignment="Center" SelectedIndex="{Binding Path=PAGETYPEM,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" SelectionChanged="cbbTypeCertification_SelectionChanged" BorderThickness="0" Height="30" Margin="2" Width="Auto" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content=""></ComboBoxItem>
+                                    <ComboBoxItem Content="FSC"></ComboBoxItem>
+                                    <ComboBoxItem Content="PEFC"></ComboBoxItem>
+
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Column="6" Background="AliceBlue">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="P/L chứng nhận" Background="AliceBlue" FontWeight="Bold" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.RowSpan="2"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="8">
+                                <ComboBox Name="cbbTypeDetail"  VerticalAlignment="Center" ItemsSource="{Binding}" SelectedIndex="{Binding Path=PAGETYPED,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" DisplayMemberPath="Name_loc" Height="30" Margin="2" Width="Auto"  VerticalContentAlignment="Center">
+                                </ComboBox>
+                            </Grid>
                         </Grid>
 
 
@@ -480,7 +528,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.RowSpan="22" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="Qui Trình" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" FontWeight="Bold"></TextBlock>                           
+                            <TextBlock Text="Qui Trình" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" FontWeight="Bold"></TextBlock>
                         </Grid>
                         <Grid Grid.RowSpan="23" Grid.Column="1" Background="Gray"></Grid>
                         <Grid Grid.RowSpan="23" Grid.Column="3" Background="Gray"></Grid>
@@ -724,12 +772,12 @@
                             <TextBlock x:Name="txb_NameFileUpload" Text="{Binding Path=ETC3,Source={x:Static local:SamplePaper.PaperOut},Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" Margin="10,0"></TextBlock>
                             <CheckBox x:Name="ckb_DowloadFile" Content="Dowload File " VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0" Checked="ckb_DowloadFile_Checked" Unchecked="ckb_DowloadFile_Unchecked" Visibility="Hidden"></CheckBox>
                         </StackPanel>
-                    </Grid>                  
+                    </Grid>
                 </Grid>
             </Border>
 
         </Grid>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0" Name="stackLoading" Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Frame x:Name="frameLoading" Visibility="Hidden" NavigationUIVisibility="Hidden"></Frame>
         </StackPanel>
     </Grid>

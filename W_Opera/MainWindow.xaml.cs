@@ -91,7 +91,8 @@ namespace W_Opera
             stackMainControl.Children.Add(tabMainControl);
             ChangeSize();
             StyleButton_Remove();
-            Style_TextBlock();          
+            Style_TextBlock();
+            GetDataCmbTypeManual();
 
 
         }
@@ -464,7 +465,61 @@ namespace W_Opera
             str = "close";
             ChangeSize();            
         }
+        public static List<Helper_Combobox> _ListTypeD = new List<Helper_Combobox>();
+        public static List<Helper_Combobox> _ListTypeM = new List<Helper_Combobox>();
+        public  void GetDataCmbTypeManual()
+        {
+            try
+            {
+                _ListTypeD.Clear();
+                ////lây dữ liệu lên cbb Year
+                //string cbYear = "";
+                //string queryYear = "SPGetDataCmbTypeDetailManual @cbYear ";
 
+                //// Lấy dữ liệu và hiển thị
+                //DataTable listCmbYear = new DataTable();
+
+                //listCmbYear = DataProvider.Instance.ExecuteSP(path_sql, queryYear, new object[] { cbYear });
+
+
+                //Helper_Combobox item = new Helper_Combobox();
+
+                //foreach (DataRow Row in listCmbYear.Rows)
+                //{
+                //    item.code = Row["ChageChar1"].ToString();
+                //    item.Name_loc = Row["Name_loc"].ToString();
+                //    _ListTypeD.Add(item);
+                //}
+
+
+                using (SqlConnection conn = new SqlConnection(path_sql))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT Name_loc, ChageChar1 FROM temstetc WHERE GubunCode='962' UNION SELECT '' AS Name_loc, '000' AS ChageChar1", conn))
+                    {
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                if (dr[0] != null)
+                                {
+                                    Helper_Combobox item = new Helper_Combobox();
+                                    item.code = dr[1].ToString();
+                                    item.Name_loc = dr[0].ToString();
+                                    _ListTypeD.Add(item);
+                                }
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+                //cbbTypeCertification.ItemsSource = listResultYear;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
 
         private void BtnMainExit_Click(object sender, RoutedEventArgs e)

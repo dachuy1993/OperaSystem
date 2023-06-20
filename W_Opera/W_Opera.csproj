@@ -148,8 +148,10 @@
     <Compile Include="Helper_AccessManger.cs" />
     <Compile Include="Helper_ApproveSample.cs" />
     <Compile Include="Helper_Bitmap.cs" />
+    <Compile Include="Helper_Combobox.cs" />
     <Compile Include="Helper_ConverterColor.cs" />
     <Compile Include="Helper_DataBase.cs" />
+    <Compile Include="Helper_DataExcel.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
