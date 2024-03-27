@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.mshtml.dll" size="8027488">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.mshtml.dll" size="8027504">
       <assemblyIdentity name="Microsoft.mshtml" version="7.0.3300.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>xGXpNz0OCYHUD32mNSf9FXVUv11fEmyldeXzyfDdDw8=</dsig:DigestValue>
+        <dsig:DigestValue>sT/LywYvpaL3GBuLMWoE99mN8n/cR6Kg0zeL4Bvxmos=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -199,14 +199,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="W_Opera.exe" size="4301312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="W_Opera.exe" size="4337664">
       <assemblyIdentity name="W_Opera" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>CMIXAxnNKb8MD9iBMI8eGPdxZJgZE133rlGu56lWkSM=</dsig:DigestValue>
+        <dsig:DigestValue>LUz2hoIQCNTRAMrwUCDKj//LmeDu6RAZL3PZ4UJxD6c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

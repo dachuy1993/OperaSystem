@@ -58,7 +58,7 @@
         <!--ListView-->
         <Grid Grid.Column="0" Grid.Row="2" Margin="2">
             <ListView x:Name="lvApproveSample" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
-                              SelectionChanged="lvApproveSample_SelectionChanged" Margin="2">
+                              SelectionChanged="lvApproveSample_SelectionChanged" Margin="2" MouseDoubleClick="lvApproveSample_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="√" Width="40">
@@ -144,7 +144,7 @@
                 <!--List Button Edit-->
                 <StackPanel Grid.Row="1" x:Name="grid_ButtonEditor" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                    <ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Margin="2">
+                    <!--<ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Margin="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Button Style="{StaticResource styleButtonEdit}"  
@@ -157,7 +157,56 @@
                                 </Button>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
+                    </ListView>-->
+                    <Button x:Name="AddBoxBtn" Width="80" Style="{StaticResource styleButtonEdit}" Margin="5,0" 
+                                    Click="AddBoxBtn_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/add.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Add" VerticalAlignment="Center" Margin="10,0,0,0" />
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="DelBoxBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="DelBoxBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/delete.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Del" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="EditBoxBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="EditBoxBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/edit.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Edit" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="SaveBoxBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="SaveBoxBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/save.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Save" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="Button_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/printer.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Print" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="RunBoxBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="RunBoxBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/check.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Run" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    
                 </StackPanel>
                 <!--List Button Approve-->
                 <Border Grid.RowSpan="2" Width="300" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="DodgerBlue" BorderThickness="1" Margin="2">

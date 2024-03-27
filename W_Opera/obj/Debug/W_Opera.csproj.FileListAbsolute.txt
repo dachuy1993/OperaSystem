@@ -5513,3 +5513,7 @@ D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\W_Opera.application
 D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\W_Opera.csproj.CopyComplete
 D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\W_Opera.exe
 D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\W_Opera.pdb
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\Window_HistoryBox.g.cs
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\Window_HistoryManual.g.cs
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\Window_HistoryBox.baml
+D:\C#\8.OperaSystem\OperaSystem\W_Opera\obj\Debug\Window_HistoryManual.baml

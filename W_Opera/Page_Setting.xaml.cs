@@ -35,6 +35,10 @@ namespace W_Opera
         string str_del = "N";
         string str_edit = "N";
         string str_save = "N";
+        string str_addBox = "N";
+        string str_delBox = "N";
+        string str_editBox = "N";
+        string str_saveBox = "N";
         string str_date = "";        
         string IdNumber = "";
         public Page_Setting()
@@ -167,6 +171,79 @@ namespace W_Opera
                         {
                             item.ApproveApprove = "Red";
                         }
+
+                        if (item.AddMan == "Y")
+                        {
+                            item.AddMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.AddMan = "Red";
+                        }
+                        //
+                        if (item.DelMan == "Y")
+                        {
+                            item.DelMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.DelMan = "Red";
+                        }
+
+                        if (item.EditMan == "Y")
+                        {
+                            item.EditMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.EditMan = "Red";
+                        }
+                        //
+                        if (item.SaveMan == "Y")
+                        {
+                            item.SaveMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.SaveMan = "Red";
+                        }
+
+                        if (item.AddBox == "Y")
+                        {
+                            item.AddBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.AddBox = "Red";
+                        }
+                        //
+                        if (item.DelBox == "Y")
+                        {
+                            item.DelBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.DelBox = "Red";
+                        }
+
+                        if (item.EditBox == "Y")
+                        {
+                            item.EditBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.EditBox = "Red";
+                        }
+                        //
+                        if (item.SaveBox == "Y")
+                        {
+                            item.SaveBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.SaveBox = "Red";
+                        }
+
                         //
                         if (item.ProRun == "Y")
                         {
@@ -196,7 +273,12 @@ namespace W_Opera
             ck_Add.IsChecked = false;
             ck_Del.IsChecked = false;
             ck_Edit.IsChecked = false;
-            ck_Save.IsChecked = false;           
+            ck_Save.IsChecked = false;
+            ck_AddBox.IsChecked = false;
+            ck_DelBox.IsChecked = false;
+            ck_EditBox.IsChecked = false;
+            ck_SaveBox.IsChecked = false;
+            ck_Run.IsChecked = false;
         }
 
         public void ProcessButtonEdit_Del()
@@ -212,7 +294,7 @@ namespace W_Opera
             str_name = txt_NameApprove.Text;
             str_dep = txt_DepApprove.Text;
             str_date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            db.Update_AccessApprove(path_sql,nameTableApprove,IdNumber, str_id, str_name, str_dep, str_create, str_approve,str_run,str_date);
+            db.Update_AccessApprove(path_sql,nameTableApprove,IdNumber, str_id, str_name, str_dep, str_create, str_approve,str_run, str_add, str_del, str_edit, str_save, str_addBox, str_delBox, str_editBox, str_saveBox, str_date);
             Read_SettingApprove();
             MessageBox.Show("Cập nhật dữ liệu Thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -223,7 +305,7 @@ namespace W_Opera
             str_dep = txt_DepApprove.Text;
             str_date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string maxSamno = db.Read_MaxSamno(path_sql, nameTableApprove);
-            db.Insert_AccessApprove(path_sql, nameTableApprove,maxSamno,str_id, str_name,str_dep,str_create, str_approve,str_run,str_date);
+            db.Insert_AccessApprove(path_sql, nameTableApprove,maxSamno,str_id, str_name,str_dep,str_create, str_approve,str_run,str_add,str_del,str_edit,str_save,str_addBox,str_delBox,str_editBox,str_saveBox,str_date);
             Read_SettingApprove();
             MessageBox.Show("Thêm dữ liệu Thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -270,6 +352,87 @@ namespace W_Opera
                         {
                             item.ApproveApprove = "Red";
                         }
+
+                        if (item.AddMan == "Y")
+                        {
+                            item.AddMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.AddMan = "Red";
+                        }
+                        //
+                        if (item.DelMan == "Y")
+                        {
+                            item.DelMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.DelMan = "Red";
+                        }
+
+                        if (item.EditMan == "Y")
+                        {
+                            item.EditMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.EditMan = "Red";
+                        }
+                        //
+                        if (item.SaveMan == "Y")
+                        {
+                            item.SaveMan = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.SaveMan = "Red";
+                        }
+
+                        if (item.AddBox == "Y")
+                        {
+                            item.AddBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.AddBox = "Red";
+                        }
+                        //
+                        if (item.DelBox == "Y")
+                        {
+                            item.DelBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.DelBox = "Red";
+                        }
+
+                        if (item.EditBox == "Y")
+                        {
+                            item.EditBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.EditBox = "Red";
+                        }
+                        //
+                        if (item.SaveBox == "Y")
+                        {
+                            item.SaveBox = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.SaveBox = "Red";
+                        }
+                        if (item.ProRun == "Y")
+                        {
+                            item.ProRun = "DodgerBlue";
+                        }
+                        else
+                        {
+                            item.ProRun = "Red";
+                        }
+
                         lvApproveSample.Items.Add(item);
 
                     }
@@ -301,6 +464,42 @@ namespace W_Opera
                     if (clickItem.ApproveApprove == "DodgerBlue")
                     {
                         ck_Approve.IsChecked = true;
+                    }
+                    if (clickItem.AddMan == "DodgerBlue")
+                    {
+                        ck_Add.IsChecked = true;
+                    }
+                    if (clickItem.DelMan == "DodgerBlue")
+                    {
+                        ck_Del.IsChecked = true;
+                    }
+                    if (clickItem.EditMan == "DodgerBlue")
+                    {
+                        ck_Edit.IsChecked = true;
+                    }
+                    if (clickItem.SaveMan == "DodgerBlue")
+                    {
+                        ck_Save.IsChecked = true;
+                    }
+                    if (clickItem.AddBox == "DodgerBlue")
+                    {
+                        ck_AddBox.IsChecked = true;
+                    }
+                    if (clickItem.DelBox == "DodgerBlue")
+                    {
+                        ck_DelBox.IsChecked = true;
+                    }
+                    if (clickItem.EditBox == "DodgerBlue")
+                    {
+                        ck_EditBox.IsChecked = true;
+                    }
+                    if (clickItem.SaveBox == "DodgerBlue")
+                    {
+                        ck_SaveBox.IsChecked = true;
+                    }
+                    if (clickItem.ProRun == "DodgerBlue")
+                    {
+                        ck_Run.IsChecked = true;
                     }
                 }
             }
@@ -381,6 +580,46 @@ namespace W_Opera
         private void ck_Run_Unchecked(object sender, RoutedEventArgs e)
         {
             str_run = "N";
+        }
+
+        private void ck_AddBox_Checked(object sender, RoutedEventArgs e)
+        {
+            str_addBox = "Y";
+        }
+
+        private void ck_DelBox_Checked(object sender, RoutedEventArgs e)
+        {
+            str_delBox = "Y";
+        }
+
+        private void ck_EditBox_Checked(object sender, RoutedEventArgs e)
+        {
+            str_editBox = "Y";
+        }
+
+        private void ck_SaveBox_Checked(object sender, RoutedEventArgs e)
+        {
+            str_saveBox = "Y";
+        }
+
+        private void ck_AddBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            str_addBox = "N";
+        }
+
+        private void ck_DelBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            str_delBox="N";
+        }
+
+        private void ck_EditBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            str_editBox="N";
+        }
+
+        private void ck_SaveBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            str_saveBox="N";
         }
     }
 

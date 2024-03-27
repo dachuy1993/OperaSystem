@@ -1,0 +1,67 @@
+﻿<Window x:Class="W_Opera.Window_HistoryManual"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Lịch sử Manual" Height="650" Width="1500">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="ListHistory" ItemContainerStyle="{StaticResource styleConvertColorRowListView}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="STT" Width="40" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                    <GridViewColumn Header="Trạng thái" Width="40" DisplayMemberBinding="{Binding StatusHis}"></GridViewColumn>
+                    <GridViewColumn Header="Seq" Width="40" DisplayMemberBinding="{Binding SeqHis}"></GridViewColumn>
+                    
+                    
+                    <GridViewColumn Header="Model Code" Width="150" DisplayMemberBinding="{Binding CUSTPARTCODE}"></GridViewColumn>
+                    <GridViewColumn Header="Model" Width="100"  DisplayMemberBinding="{Binding CUSTMODELCODE}"></GridViewColumn>
+                    <GridViewColumn Header="Mã hàng" Width="150" DisplayMemberBinding="{Binding CUSTPARTCODE}"></GridViewColumn>
+                    <GridViewColumn Header="Tình trạng" Width="70" DisplayMemberBinding="{Binding VERSIONUP}"></GridViewColumn>
+
+                    <GridViewColumn Header="Ver" Width="30" DisplayMemberBinding="{Binding VERSION}"></GridViewColumn>
+                    <GridViewColumn Header="Khách hàng" Width="80" DisplayMemberBinding="{Binding CUST_GB}"></GridViewColumn>
+                    <GridViewColumn Header="Người yêu cầu" Width="100" DisplayMemberBinding="{Binding INSEMPCODE}"></GridViewColumn>
+                    <GridViewColumn Header="Giấy in bìa" Width="100" DisplayMemberBinding="{Binding PAPERNAMEOut}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước in" Width="100" DisplayMemberBinding="{Binding HEIGHTOut}"></GridViewColumn>
+
+                    <GridViewColumn Header="Tỷ lệ" Width="50" DisplayMemberBinding="{Binding PHCOUNTOut}"></GridViewColumn>
+                    <GridViewColumn Header="Mã NVL" Width="80" DisplayMemberBinding="{Binding PAPERNAME_FullOut}"></GridViewColumn>
+
+                    <GridViewColumn Header="Giấy in ruột" Width="100" DisplayMemberBinding="{Binding PAPERNAMEIn}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước in" Width="100" DisplayMemberBinding="{Binding HEIGHTIn}"></GridViewColumn>
+                    <GridViewColumn Header="Tỷ lệ" Width="50" DisplayMemberBinding="{Binding PHCOUNTIn}"></GridViewColumn>
+                    <GridViewColumn Header="Mã NVL" Width="80" DisplayMemberBinding="{Binding PAPERNAME_FullIn}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước thành phẩm" DisplayMemberBinding="{Binding MODELSPECOut}"></GridViewColumn>
+                    <GridViewColumn Header="Số trang"  DisplayMemberBinding="{Binding PAGECNT}"></GridViewColumn>
+                    <GridViewColumn Header="Công đoạn" Width="400" DisplayMemberBinding="{Binding ETC1}"></GridViewColumn>
+
+                    <GridViewColumn Header="In màu bìa" Width="100" DisplayMemberBinding="{Binding BCOLORCODEOut}"></GridViewColumn>
+                    <GridViewColumn Header="In màu ruột" Width="80" DisplayMemberBinding="{Binding BCOLORCODEIn}"></GridViewColumn>
+                    <GridViewColumn Header="Gấp bìa" Width="60" DisplayMemberBinding="{Binding TOTALPAGEOUT}"></GridViewColumn>
+                    <GridViewColumn Header="Gấp ruột" Width="60" DisplayMemberBinding="{Binding TOTALPAGEIN}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày yêu cầu" Width="130" DisplayMemberBinding="{Binding DATESTARTAPPROVE}"></GridViewColumn>
+
+                    <GridViewColumn Header="Ngày hoàn thành" Width="130" DisplayMemberBinding="{Binding DATEFINISHAPPROVE}"></GridViewColumn>
+                    <GridViewColumn Header="Số file đính kèm" DisplayMemberBinding="{Binding ETC3}"></GridViewColumn>
+                    <GridViewColumn Header="Mar" DisplayMemberBinding="{Binding MA}"></GridViewColumn>
+                    <GridViewColumn Header="Pro" DisplayMemberBinding="{Binding SX}"></GridViewColumn>
+                    <GridViewColumn Header="QC" DisplayMemberBinding="{Binding CL}"></GridViewColumn>
+                    <GridViewColumn Header="Rnd" DisplayMemberBinding="{Binding RD}"></GridViewColumn>
+                    <GridViewColumn Header="Pur" DisplayMemberBinding="{Binding KD}"></GridViewColumn>
+                    <GridViewColumn Header="Người sửa" DisplayMemberBinding="{Binding InsempcodeHis}"></GridViewColumn>
+                    <GridViewColumn Header="ngày sửa" DisplayMemberBinding="{Binding InsdtHis}"></GridViewColumn>
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

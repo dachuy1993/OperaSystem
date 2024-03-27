@@ -22,6 +22,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Tulpep.NotificationWindow;
+using W_Opera.DAO;
 
 namespace W_Opera
 {
@@ -43,6 +44,9 @@ namespace W_Opera
         OpenFileDialog ofd;
         public static DataBaseHelper db = new DataBaseHelper();
         List<Helper_TaixinDB_SampleBox> listSampleBox = new List<Helper_TaixinDB_SampleBox>();
+
+        public static string ModelCodeHistBox = "";
+
         int qtyFileUpload = 0;
         string date = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
         string str_cbbFilterApprove = "Tìm kiếm All";
@@ -52,6 +56,11 @@ namespace W_Opera
         string accessProcess = "Approve";       
         string processButton = "";
         string str_depCreate = "";
+        public string str_AddBox = "";
+        public string str_DelBox = "";
+        public string str_EditBox = "";
+        public string str_SaveBox = "";
+        public string str_RunBox = "";
         string dateInput = "";
         bool checkPopup = false;
         bool checkRun = false;
@@ -154,6 +163,17 @@ namespace W_Opera
         string str_insdt;
         string str_updempcode;
         string str_upddt;
+
+        bool AddBox = false;
+        bool DelBox = false;
+        bool EditBox = false;
+        bool SaveBox = false;
+        bool RunBox = false;
+
+        
+        
+
+        string DateNow;
         public List<string> ListSpecPaper { get; set; }
         public List<string> ListSpecColor { get; set; }
 
@@ -163,21 +183,34 @@ namespace W_Opera
         public Page_Sample_Box()
         {
             InitializeComponent();
-            CreatAllButtonEdit();
+            //CreatAllButtonEdit();
             Loaded += Page_Sample_Box_Loaded;
         }
         
         private void Page_Sample_Box_Loaded(object sender, RoutedEventArgs e)
         {
+            List<string> list = new List<string>();
+            string query1 = "SELECT RIGHT(LEFT(CONVERT(VARCHAR(8),getdate(),112),6),2)+'/'+RIGHT(CONVERT(VARCHAR(8),getdate(),112),2) + '/' + LEFT(CONVERT(VARCHAR(8),getdate(),112),4)";
+            string Pra1 = "122";
+            //list = db.Read_TaxinDb_SampleBox(MainWindow.path_sql, query1);
+            var DateNowList = DataProvider.Instance.executeQuery(MainWindow.path_sql, query1, new object[] { Pra1 });
+            foreach (DataRow rowA in DateNowList.Rows)
+            {
+                DateNow = rowA[0].ToString();
+            }
+
+
             path_sql = "Data Source=" + MainWindow.ip + ";Initial Catalog=taixin_db;Persist Security Info=True;User ID=sa;Password= oneuser1!";
             path_sql_attach = MainWindow.path_sql_attach;
             dpkStartApprove.SelectedDate = DateTime.Now;
             dpkFinishApprove.SelectedDate = DateTime.Now;
             dp_DateStart.SelectedDate = DateTime.Now;
             dp_DateFinish.SelectedDate = DateTime.Now;
+
             str_applydt = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
-            AccessManage();
+            
             GetDataDeptUser();
+            AccessManage();
             Filter_Sample_All();           
             GetDataSpec();            
         }
@@ -241,7 +274,7 @@ namespace W_Opera
                 {
                     conn.Open();
                     {
-                        var command = "SELECT Department FROM tbSampleAccess where UserLogin = '" + MainWindow.UserLogin + "'";
+                        var command = "SELECT Department, AddBox, DelBox, EditBox, SaveBox, ProRun FROM tbSampleAccess where UserLogin = '" + MainWindow.UserLogin + "'";
                         using (SqlCommand cmd = new SqlCommand(command, conn))
                         {
                             using (IDataReader dr = cmd.ExecuteReader())
@@ -252,6 +285,11 @@ namespace W_Opera
                                     if (dr[0] != null)
                                     {
                                         str_depCreate = dr[0].ToString();
+                                        str_AddBox = dr[1].ToString();
+                                        str_DelBox = dr[2].ToString();
+                                        str_EditBox = dr[3].ToString();
+                                        str_SaveBox = dr[4].ToString();
+                                        str_RunBox = dr[5].ToString();
                                         //if (txt_User.Text.ToUpper() == dr[0].ToString().Trim().ToUpper() && (txtPass.Text.ToUpper() == dr[1].ToString().Trim().ToUpper() || pb_Pass.Password.ToUpper() == dr[1].ToString().Trim().ToUpper()))
                                         //{
                                         //    checkLogin = true;
@@ -265,6 +303,48 @@ namespace W_Opera
                     }
                     conn.Close();
                 }
+
+                if(str_AddBox == "Y")
+                {
+                    AddBox = true;
+                }    
+                else
+                {
+                    AddBox = false;
+                }
+                if (str_DelBox == "Y")
+                {
+                    DelBox = true;
+                }
+                else
+                {
+                    DelBox = false;
+                }
+                if (str_EditBox == "Y")
+                {
+                    EditBox = true;
+                }
+                else
+                {
+                    EditBox = false;
+                }
+                if (str_SaveBox == "Y")
+                {
+                    SaveBox = true;
+                }
+                else
+                {
+                    SaveBox = false;
+                }
+                if (str_RunBox == "Y")
+                {
+                    RunBox = true;
+                }
+                else
+                {
+                    RunBox = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -273,58 +353,70 @@ namespace W_Opera
         }
 
 
-        public void CreatAllButtonEdit()
-        {            
-            lvButtonTop.Items.Clear();
-            listButtonTop.Clear();
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 1,
-                ContentButton = "Add",
-                ImageSource = "Image/Edit/add.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 2,
-                ContentButton = "Del",
-                ImageSource = "Image/Edit/delete.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 3,
-                ContentButton = "Edit",
-                ImageSource = "Image/Edit/edit.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 4,
-                ContentButton = "Save",
-                ImageSource = "Image/Edit/save.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 5,
-                ContentButton = "Print",
-                ImageSource = "Image/Edit/printer.png",
-                BackGroundColor = PinValue.OFF
-            });
-            //listButtonTop.Add(new Helper_DataButton
-            //{
-            //    ID = 6,
-            //    ContentButton = "Check",
-            //    ImageSource = "Image/Edit/check.png",
-            //    BackGroundColor = PinValue.OFF
-            //});
-            foreach (var button in listButtonTop)
-            {
-                lvButtonTop.Items.Add(button);
-            }
+        //public void CreatAllButtonEdit()
+        //{
+        //    lvButtonTop.Items.Clear();
+        //    listButtonTop.Clear();
+        //    if (str_AddBox == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 1,
+        //            ContentButton = "Add",
+        //            ImageSource = "Image/Edit/add.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    if (str_DelBox == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 2,
+        //            ContentButton = "Del",
+        //            ImageSource = "Image/Edit/delete.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    if (str_EditBox == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 3,
+        //            ContentButton = "Edit",
+        //            ImageSource = "Image/Edit/edit.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    if (str_SaveBox == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 4,
+        //            ContentButton = "Save",
+        //            ImageSource = "Image/Edit/save.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    listButtonTop.Add(new Helper_DataButton
+        //    {
+        //        ID = 5,
+        //        ContentButton = "Print",
+        //        ImageSource = "Image/Edit/printer.png",
+        //        BackGroundColor = PinValue.OFF
+        //    });
+        //    //listButtonTop.Add(new Helper_DataButton
+        //    //{
+        //    //    ID = 6,
+        //    //    ContentButton = "Check",
+        //    //    ImageSource = "Image/Edit/check.png",
+        //    //    BackGroundColor = PinValue.OFF
+        //    //});
+        //    foreach (var button in listButtonTop)
+        //    {
+        //        lvButtonTop.Items.Add(button);
+        //    }
 
-        }
+        //}
        
        
         private void ButtonTop_Click(object sender, RoutedEventArgs e)
@@ -719,6 +811,7 @@ namespace W_Opera
             {
                 try
                 {
+                    ProcessSampleBoxHist(ApprovalClickItem.samno, "Delete");
                     using (SqlConnection conn = new SqlConnection(path_sql))
                     {
                         conn.Open();
@@ -737,6 +830,23 @@ namespace W_Opera
                         conn.Close();
 
                     }
+                    var settings = new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" };
+                    var jsonDateInput = JsonConvert.SerializeObject(DateTime.Now, settings);
+                    string imsempcode = MainWindow.UserLogin;
+                    string insdt = jsonDateInput.Substring(1, jsonDateInput.Length - 2);
+
+                    using (SqlConnection conn = new SqlConnection(path_sql_attach))
+                    {
+                        conn.Open();
+                        var command = "INSERT INTO tbSampleAttachHistory SELECT *,'D','" + imsempcode + "','" + insdt + "' from tbSampleAttach WHERE typeSample = 'Box' and samno =" + "'" + ApprovalClickItem.samno + "'";
+                        using (SqlCommand cmd = new SqlCommand(command, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+                    }
+                    
+
                     using (SqlConnection conn = new SqlConnection(path_sql_attach))
                     {
                         conn.Open();
@@ -767,6 +877,7 @@ namespace W_Opera
                 try
                 {
                     Add_NewData();
+                    ProcessSampleBoxHist(ApprovalClickItem.samno, "Edit");
                     using (SqlConnection conn = new SqlConnection(path_sql))
                     {
                         conn.Open();
@@ -799,6 +910,7 @@ namespace W_Opera
         {
             try
             {
+                ProcessSampleBoxHist(ApprovalClickItem.samno, "Save");
                 frameLoading.Visibility = Visibility.Visible;
                 Add_NewData();
                 await Process_AttachFile();
@@ -818,7 +930,9 @@ namespace W_Opera
                     conn.Close();
                 }
                 ProcessSampleHistory(ApprovalClickItem.samno, "Save");
-               
+
+                
+
                 //MessageBox.Show("Lưu mẫu thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(Exception ex)
@@ -843,6 +957,7 @@ namespace W_Opera
                 {
                     if (checkRun == true)
                     {
+                        ProcessSampleBoxHist(SampleBox.box.samno, "Printed");
                         using (SqlConnection conn = new SqlConnection(path_sql))
                         {
                             conn.Open();
@@ -855,6 +970,7 @@ namespace W_Opera
                             }
                             Filter_Sample_All();
                             ProcessSampleHistory(SampleBox.box.samno, "Printed");
+                            
                             conn.Close();
                         }
                     }
@@ -867,6 +983,7 @@ namespace W_Opera
                 {
                     if (checkRun == true)
                     {
+                        ProcessSampleBoxHist(SampleBox.box.samno, "Printed");
                         using (SqlConnection conn = new SqlConnection(path_sql))
                         {
                             conn.Open();
@@ -909,6 +1026,12 @@ namespace W_Opera
                 }
                 conn.Close();
             }
+        }
+
+        public void ProcessSampleBoxHist(string samno, string ope)
+        {
+            string query = "SPInsertSampleBoxHis @pSamNo , @pStatus , @pEmpId";
+            var listInsertData = DataProvider.Instance.ExecuteSP(path_sql, query, new object[] { samno, ope, MainWindow.UserLogin });
         }
 
         public void ProcessUploadFile(){
@@ -1025,6 +1148,7 @@ namespace W_Opera
         {
             try
             {
+                ProcessSampleBoxHist(ApprovalClickItem.samno, "Arv-" + department);
                 using (SqlConnection conn = new SqlConnection(path_sql))
                 {
                     conn.Open();
@@ -1073,6 +1197,8 @@ namespace W_Opera
                     conn.Close();
                 }
                 ProcessSampleHistory(ApprovalClickItem.samno, "Arv-"+department);
+
+                
             }
             catch(Exception ex)
             {
@@ -1255,10 +1381,17 @@ namespace W_Opera
         
         public void CreatData()
         {
-            CreatAllButtonEdit();            
+            //CreatAllButtonEdit();            
             ckbTest.Content = "Chuyển đổi";
             accessProcess = "Creat";
-            lvButtonTop.Visibility = Visibility.Visible;
+            //lvButtonTop.Visibility = Visibility.Visible;
+
+            AddBoxBtn.IsEnabled = AddBox;
+            DelBoxBtn.IsEnabled = DelBox;
+            EditBoxBtn.IsEnabled = EditBox;
+            SaveBoxBtn.IsEnabled = SaveBox;
+            RunBoxBtn.IsEnabled = RunBox;
+
             stackApprove.Visibility = Visibility.Visible;           
             grid_ButtonEditor.Visibility = Visibility.Visible;
             btnApprove_Ma.Visibility = Visibility.Hidden;
@@ -1277,23 +1410,23 @@ namespace W_Opera
        
         public void ApproveData()
         {           
-            lvButtonTop.Items.Clear();          
-            if(listButtonTop.Count<6)
-            {
-                listButtonTop.Add(new Helper_DataButton
-                {
-                    ID = 6,
-                    ContentButton = "Run",
-                    ImageSource = "Image/Edit/check.png",
-                    BackGroundColor = PinValue.OFF
-                });
-            }            
-            foreach (var button in listButtonTop)
-            {                
-                if(button.ID>4)
-                lvButtonTop.Items.Add(button);
+            //lvButtonTop.Items.Clear();          
+            //if(listButtonTop.Count<6)
+            //{
+            //    listButtonTop.Add(new Helper_DataButton
+            //    {
+            //        ID = 6,
+            //        ContentButton = "Run",
+            //        ImageSource = "Image/Edit/check.png",
+            //        BackGroundColor = PinValue.OFF
+            //    });
+            //}            
+            //foreach (var button in listButtonTop)
+            //{                
+            //    if(button.ID>4)
+            //    lvButtonTop.Items.Add(button);
                 
-            }           
+            //}           
             ckbTest.Content = "Chuyển đổi";
             accessProcess = "Approve";
             stackApprove.Visibility = Visibility.Visible;
@@ -1873,6 +2006,85 @@ namespace W_Opera
             if (clickItem != null)
             {
                 clickItem.checkXLS = "False";
+            }
+        }
+
+        private void AddBoxBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Add";
+            AddBoxBtn.Background = Brushes.LightGreen;
+            DelBoxBtn.Background = Brushes.LightGray;
+            EditBoxBtn.Background = Brushes.LightGray;
+            SaveBoxBtn.Background = Brushes.LightGray;
+            RunBoxBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Add();
+        }
+
+        private void DelBoxBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Del";
+            AddBoxBtn.Background = Brushes.LightGray;
+            DelBoxBtn.Background = Brushes.LightGreen;
+            EditBoxBtn.Background = Brushes.LightGray;
+            SaveBoxBtn.Background = Brushes.LightGray;
+            RunBoxBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Del();
+        }
+
+        private void EditBoxBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Edit";
+            AddBoxBtn.Background = Brushes.LightGray;
+            DelBoxBtn.Background = Brushes.LightGray;
+            EditBoxBtn.Background = Brushes.LightGreen;
+            SaveBoxBtn.Background = Brushes.LightGray;
+            RunBoxBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Edit();
+        }
+
+        private void SaveBoxBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Save";
+            AddBoxBtn.Background = Brushes.LightGray;
+            DelBoxBtn.Background = Brushes.LightGray;
+            EditBoxBtn.Background = Brushes.LightGray;
+            SaveBoxBtn.Background = Brushes.LightGreen;
+            RunBoxBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Save();
+        }
+
+        private void RunBoxBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddBoxBtn.Background = Brushes.LightGray;
+            DelBoxBtn.Background = Brushes.LightGray;
+            EditBoxBtn.Background = Brushes.LightGray;
+            SaveBoxBtn.Background = Brushes.LightGray;
+            RunBoxBtn.Background = Brushes.LightGreen;
+            ProcessButtonEdit_Run();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Print";
+            ProcessButtonEdit_Printer();
+        }
+
+        private void lvApproveSample_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var click = sender as ListView;
+                var clickItem = click.SelectedItem as Helper_TaixinDB_SampleBox;
+                ModelCodeHistBox = clickItem.custpartcode;
+                Window_HistoryBox window_HistoryBox = new Window_HistoryBox();
+                window_HistoryBox.Show();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Show List History ", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

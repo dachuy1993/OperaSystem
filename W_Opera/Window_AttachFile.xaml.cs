@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using W_Opera.Properties;
 
 namespace W_Opera
 {
@@ -39,8 +40,18 @@ namespace W_Opera
         public static OpenFileDialog ofd_AttachFile;
         FileAttach fileRomove = new FileAttach();
         public static List<FileAttach> listAttachFile = new List<FileAttach>();
-        int index = 0;       
+        int index = 0;
+        int indexHis = 0;
         string check = "";
+        public string str_depCreate = "";
+        public string str_AddMan = "";
+        public string str_DelMan = "";
+        public string str_EditMan = "";
+        public string str_SaveMan = "";
+        public string str_AddBox = "";
+        public string str_DelBox = "";
+        public string str_EditBox = "";
+        public string str_SaveBox = "";
         public Window_AttachFile()
         {
             InitializeComponent();
@@ -49,6 +60,7 @@ namespace W_Opera
 
         private void Window_AttachFile_Loaded(object sender, RoutedEventArgs e)
         {
+            GetDataDeptUser();
             CreatAllButtonEdit();          
             listAttachFile.Clear();
             if (MainWindow.at_Samno != "")
@@ -56,7 +68,56 @@ namespace W_Opera
                 Db_Read_MaxSeq();
             }            
         }
-        
+
+        public void GetDataDeptUser()
+        {
+            try
+            {
+
+                List<string> list = new List<string>();
+                using (SqlConnection conn = new SqlConnection(MainWindow.path_sql))
+                {
+                    conn.Open();
+                    {
+                        var command = "SELECT Department, AddMan, DelMan, EditMan, SaveMan, AddBox, DelBox, EditBox, SaveBox FROM tbSampleAccess where UserLogin = '" + MainWindow.UserLogin + "'";
+                        using (SqlCommand cmd = new SqlCommand(command, conn))
+                        {
+                            using (IDataReader dr = cmd.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    list.Add(dr[0].ToString());
+                                    if (dr[0] != null)
+                                    {
+                                        str_depCreate = dr[0].ToString();
+                                        str_AddMan = dr[1].ToString();
+                                        str_DelMan = dr[2].ToString();
+                                        str_EditMan = dr[3].ToString();
+                                        str_SaveMan = dr[4].ToString();
+                                        str_AddBox = dr[5].ToString();
+                                        str_DelBox = dr[6].ToString();
+                                        str_EditBox = dr[7].ToString();
+                                        str_SaveBox = dr[8].ToString();
+                                        //if (txt_User.Text.ToUpper() == dr[0].ToString().Trim().ToUpper() && (txtPass.Text.ToUpper() == dr[1].ToString().Trim().ToUpper() || pb_Pass.Password.ToUpper() == dr[1].ToString().Trim().ToUpper()))
+                                        //{
+                                        //    checkLogin = true;
+                                        //}
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ReadVersion_SQLserver" + ex.Message, "Login/MainWindow", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public void CreatAllButtonEdit()
         {
             lvButtonTop.Items.Clear();
@@ -171,7 +232,7 @@ namespace W_Opera
 
         private void ProcessButtonEdit_Del()
         {
-            if(check=="New")
+            if(check=="New" && (str_EditMan == "Y" || str_EditBox == "Y" || str_SaveMan == "Y" || str_SaveBox == "Y") )
             {
                 if (MessageBoxResult.Yes == MessageBox.Show("Bạn muốn Xóa File đính kèm?\r\nHãy chắc chắn điều này", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question))
                 {
@@ -180,7 +241,7 @@ namespace W_Opera
                     lvAttachFile.ItemsSource = listAttachFile;
                 }
             } 
-            else if(check=="Edit")
+            else if(check=="Edit" && (str_EditMan == "Y" || str_EditBox == "Y" || str_SaveMan == "Y" || str_SaveBox == "Y"))
             {
                 if (MessageBoxResult.Yes == MessageBox.Show("Bạn muốn xóa file đính kèm?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question))
                 {
@@ -188,6 +249,27 @@ namespace W_Opera
                     {
                         if(fileRomove.Samno!=null)
                         {
+
+                            
+                            var settings = new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" };
+                            var jsonDateInput = JsonConvert.SerializeObject(DateTime.Now, settings);
+                            //int seq = int.Parse(db.Rejetc_MaxSeq(path_sql_attach, "tbSampleAttach", _samno, _typeSample));
+                            //string seqMax = seq.ToString("0000");
+                            string imsempcode = MainWindow.UserLogin;
+                            string insdt = jsonDateInput.Substring(1, jsonDateInput.Length - 2);
+
+                            using (SqlConnection conn = new SqlConnection(path_sql_attach))
+                            {
+                                conn.Open();
+                                var command = "INSERT INTO tbSampleAttachHistory SELECT *,'D','" + imsempcode + "','" + insdt + "' from tbSampleAttach where samno='" + fileRomove.Samno + "' and seq = '" + fileRomove.Stt + "' and typeSample = '" + fileRomove.Type + "'";
+                                using (SqlCommand cmd = new SqlCommand(command, conn))
+                                {
+                                    cmd.ExecuteNonQuery();
+                                    conn.Close();
+                                }
+                            }
+
+
                             using (SqlConnection conn = new SqlConnection(path_sql_attach))
                             {
                                 conn.Open();
@@ -238,7 +320,7 @@ namespace W_Opera
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Bạn muốn thêm file đính kèm?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question))
             {
-                if (check == "Edit")
+                if (check == "Edit" && (str_EditMan == "Y" || str_EditBox == "Y" || str_SaveMan == "Y" || str_SaveBox == "Y"))
                 {
                     foreach (var item in listAttachFile)
                     {
@@ -407,6 +489,13 @@ namespace W_Opera
                         string upddt = jsonDateInput.Substring(1, jsonDateInput.Length - 2);
                         string query = ("INSERT tbSampleAttach(cmpcode,bizdiv,samno,seq,typeSample,modelcode,filename,filedata,qty,imsempcode,insdt,updempcode,upddt) VALUES('02','300','" + MainWindow.at_Samno + "','" + stt + "','" + MainWindow.pl_Print + "','" + MainWindow.at_ModelCode + "',N'" + namefile + "','" + base64Encoded + "','" + stt + "','" + imsempcode + "','" + insdt + "','" + updempcode + "','" + upddt + "')");
                         using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
+
+                        string queryHis = ("INSERT tbSampleAttachHistory(cmpcode,bizdiv,samno,seq,typeSample,modelcode,filename,filedata,qty,imsempcode,insdt,updempcode,upddt,typeAUD) VALUES('02','300','" + MainWindow.at_Samno + "','" + stt + "','" + MainWindow.pl_Print + "','" + MainWindow.at_ModelCode + "',N'" + namefile + "','" + base64Encoded + "','" + stt + "','" + imsempcode + "','" + insdt + "','" + updempcode + "','" + upddt + "','A')");
+                        using (SqlCommand cmd = new SqlCommand(queryHis, conn))
                         {
                             cmd.ExecuteNonQuery();
                             conn.Close();

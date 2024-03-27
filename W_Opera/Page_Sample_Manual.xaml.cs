@@ -53,6 +53,7 @@ namespace W_Opera
         string pathFileExcel = @"TempFile//ExcelFile.xlsx";
 
         public static string CustomerCode = "";
+        public static string ModelCodeHist = "";
 
         string date = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
         string str_cbbFilterApprove = "Tìm kiếm All";
@@ -60,8 +61,21 @@ namespace W_Opera
         string dateFilterFinish = DateTime.Parse(DateTime.Now.ToString()).ToString("yyyy-MM-dd") + " 23:59:59";   
         bool checkPopup = false;
         bool checkView = false;
+
+        bool AddMan = false;
+        bool DelMan = false;
+        bool EditMan = false;
+        bool SaveMan = false;
+        bool RunMan = false;
+
         string processButton = "";
         public string str_depCreate = "";
+        public string str_AddMan = "";
+        public string str_DelMan = "";
+        public string str_EditMan = "";
+        public string str_SaveMan = "";
+        public string str_Run = "";
+
         string str_FilterProduct = "Manual";
         string qtyAttachFile = "0";
         string accessProcess = "Approve";
@@ -173,8 +187,10 @@ namespace W_Opera
         public Page_Sample_Manual()
         {
             InitializeComponent();
-            CreatAllButtonEdit();
+            //CreatAllButtonEdit();
             Loaded += Page_Sample_Loaded;
+
+            
         }      
         private void Page_Sample_Loaded(object sender, RoutedEventArgs e)
         {
@@ -206,7 +222,7 @@ namespace W_Opera
                 {
                     conn.Open();
                     {
-                        var command = "SELECT Department FROM tbSampleAccess where UserLogin = '" + MainWindow.UserLogin + "'";
+                        var command = "SELECT Department, AddMan, DelMan, EditMan, SaveMan , ProRun FROM tbSampleAccess where UserLogin = '" + MainWindow.UserLogin + "'";
                         using (SqlCommand cmd = new SqlCommand(command, conn))
                         {
                             using (IDataReader dr = cmd.ExecuteReader())
@@ -217,6 +233,11 @@ namespace W_Opera
                                     if (dr[0] != null)
                                     {
                                         str_depCreate = dr[0].ToString();
+                                        str_AddMan = dr[1].ToString();
+                                        str_DelMan = dr[2].ToString();
+                                        str_EditMan = dr[3].ToString();
+                                        str_SaveMan = dr[4].ToString();
+                                        str_Run = dr[5].ToString();
                                         //if (txt_User.Text.ToUpper() == dr[0].ToString().Trim().ToUpper() && (txtPass.Text.ToUpper() == dr[1].ToString().Trim().ToUpper() || pb_Pass.Password.ToUpper() == dr[1].ToString().Trim().ToUpper()))
                                         //{
                                         //    checkLogin = true;
@@ -230,6 +251,53 @@ namespace W_Opera
                     }
                     conn.Close();
                 }
+
+                if (str_AddMan == "Y")
+                {
+                    AddMan = true;
+                    
+                }
+                else
+                {
+                    AddMan = false;
+                }
+                if (str_DelMan == "Y")
+                {
+                    DelMan = true;
+
+                }
+                else
+                {
+                    DelMan = false;
+                }
+                if (str_EditMan == "Y")
+                {
+                    EditMan = true;
+
+                }
+                else
+                {
+                    EditMan = false;
+                }
+                if (str_SaveMan == "Y")
+                {
+                    SaveMan = true;
+
+                }
+                else
+                {
+                    SaveMan = false;
+                }
+                if(str_Run == "Y")
+                {
+                    RunMan = true;
+                }
+                else
+                {
+                    RunMan = false;
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -240,107 +308,126 @@ namespace W_Opera
 
         
 
-        public void CreatAllButtonEdit()
-        {
-            lvButtonTop.Items.Clear();
-            listButtonTop.Clear();
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 1,
-                ContentButton = "Add",
-                ImageSource = "Image/Edit/add.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 2,
-                ContentButton = "Del",
-                ImageSource = "Image/Edit/delete.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 3,
-                ContentButton = "Edit",
-                ImageSource = "Image/Edit/edit.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 4,
-                ContentButton = "Save",
-                ImageSource = "Image/Edit/save.png",
-                BackGroundColor = PinValue.OFF
-            });
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 5,
-                ContentButton = "Print",
-                ImageSource = "Image/Edit/printer.png",
-                BackGroundColor = PinValue.OFF
-            });
-            foreach (var button in listButtonTop)
-            {
-                lvButtonTop.Items.Add(button);
-            }
+        //public void CreatAllButtonEdit()
+        //{
+        //    lvButtonTop.Items.Clear();
+        //    listButtonTop.Clear();
 
-        }
-        private void ButtonTop_Click(object sender, RoutedEventArgs e)
-        {
-            var click = sender as Button;
-            var clickItem = click.DataContext as Helper_DataButton;
-            if (clickItem != null)
-            {
-                switch (clickItem.ContentButton)
-                {
-                    case "Add":
-                        {
-                            processButton = "Add";
-                            ProcessButtonEdit_Add();
-                            break;
-                        }
-                    case "Del":
-                        {
-                            processButton = "Del";
-                            ProcessButtonEdit_Del();
-                            break;
-                        }
-                    case "Edit":
-                        {
-                            processButton = "Edit";
-                            ProcessButtonEdit_Edit();
-                            break;
-                        }
-                    case "Save":
-                        {
-                            processButton = "Save";
-                            ProcessButtonEdit_Save();
-                            break;
-                        }
-                    case "Print":
-                        {
-                            processButton = "Print";
-                            ProcessButtonEdit_Printer();
-                            break;
-                        }
-                    case "Run":
-                        {
-                            ProcessButtonEdit_Run();
-                            break;
-                        }
+        //    if (str_AddMan == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 1,
+        //            ContentButton = "Add",
+        //            ImageSource = "Image/Edit/add.png",
+        //            BackGroundColor = PinValue.OFF,
+        //            IsEnabled = AddMan,
+        //        });
+        //    }  
 
-                }
-                foreach (var button in listButtonTop)
-                {
-                    button.BackGroundColor = PinValue.OFF;
-                    if (button.ContentButton == clickItem.ContentButton)
-                    {
-                        button.BackGroundColor = PinValue.ON;
-                    }
-                }
+        //    if (str_DelMan == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 2,
+        //            ContentButton = "Del",
+        //            ImageSource = "Image/Edit/delete.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    if (str_EditMan == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 3,
+        //            ContentButton = "Edit",
+        //            ImageSource = "Image/Edit/edit.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    if (str_SaveMan == "Y")
+        //    {
+        //        listButtonTop.Add(new Helper_DataButton
+        //        {
+        //            ID = 4,
+        //            ContentButton = "Save",
+        //            ImageSource = "Image/Edit/save.png",
+        //            BackGroundColor = PinValue.OFF
+        //        });
+        //    }
+        //    listButtonTop.Add(new Helper_DataButton
+        //    {
+        //        ID = 5,
+        //        ContentButton = "Print",
+        //        ImageSource = "Image/Edit/printer.png",
+        //        BackGroundColor = PinValue.OFF
+        //    });
+        //    foreach (var button in listButtonTop)
+        //    {
+        //        lvButtonTop.Items.Add(button);
+        //    }
 
-            }
-        }
+        //}
+        //private void ButtonTop_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var click = sender as Button;
+        //    var clickItem = click.DataContext as Helper_DataButton;
+
+            
+
+
+        //    if (clickItem != null)
+        //    {
+        //        switch (clickItem.ContentButton)
+        //        {
+        //            case "Add":
+        //                {
+        //                    processButton = "Add";
+        //                    ProcessButtonEdit_Add();
+        //                    break;
+        //                }
+        //            case "Del":
+        //                {
+        //                    processButton = "Del";
+        //                    ProcessButtonEdit_Del();
+        //                    break;
+        //                }
+        //            case "Edit":
+        //                {
+        //                    processButton = "Edit";
+        //                    ProcessButtonEdit_Edit();
+        //                    break;
+        //                }
+        //            case "Save":
+        //                {
+        //                    processButton = "Save";
+        //                    ProcessButtonEdit_Save();
+        //                    break;
+        //                }
+        //            case "Print":
+        //                {
+        //                    processButton = "Print";
+        //                    ProcessButtonEdit_Printer();
+        //                    break;
+        //                }
+        //            case "Run":
+        //                {
+        //                    ProcessButtonEdit_Run();
+        //                    break;
+        //                }
+
+        //        }
+        //        foreach (var button in listButtonTop)
+        //        {
+        //            button.BackGroundColor = PinValue.OFF;
+        //            if (button.ContentButton == clickItem.ContentButton)
+        //            {
+        //                button.BackGroundColor = PinValue.ON;
+        //            }
+        //        }
+
+        //    }
+        //}
         public string ReadSampleNo()
         {
             try
@@ -486,6 +573,10 @@ namespace W_Opera
                                 _sample.DATEINPUT = dr[96].ToString();
                                 _sample.INSEMPCODEUP = dr[97].ToString();
                                 _sample.UPDT = dr[98].ToString();
+                                //_sample.SeqHis = dr[103].ToString();
+                                //_sample.StatusHis = dr[104].ToString();
+                                //_sample.InsempcodeHis = dr[105].ToString();
+                                //_sample.InsdtHis = dr[106].ToString();
 
                                 if (dr[63].ToString() == "Y")
                                 {
@@ -886,6 +977,14 @@ namespace W_Opera
                 }
                 conn.Close();
             }
+
+
+        }
+
+        public void ProcessSampleManualHist(string samno,string ope)
+        {
+            string query = "SPInsertSampleManualHis @pSamNo , @pStatus , @pEmpId";
+            var listInsertData = DataProvider.Instance.ExecuteSP(path_sql, query, new object[] { samno, ope, MainWindow.UserLogin });
         }
 
         public void ProcessButtonEdit_Del()
@@ -894,6 +993,19 @@ namespace W_Opera
             {
                 if (MessageBoxResult.Yes == MessageBox.Show("Bạn muốn xóa dữ liệu?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question))
                 {
+                    ProcessSampleManualHist(ApprovalClickItem.IDNumber, "Delete");
+                    using (SqlConnection conn = new SqlConnection(path_sql))
+                    {
+                        conn.Open();
+                        var command = "DELETE tbSampleManual WHERE SAMNO =" + "'" + ApprovalClickItem.IDNumber + "'";
+                        using (SqlCommand cmd = new SqlCommand(command, conn))
+                        {
+                            cmd.CommandTimeout = 100;
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
+                    }
+
                     using (SqlConnection conn = new SqlConnection(path_sql))
                     {
                         conn.Open();
@@ -904,6 +1016,22 @@ namespace W_Opera
                             cmd.ExecuteNonQuery();
                         }                        
                         conn.Close();
+                    }
+
+                    var settings = new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" };
+                    var jsonDateInput = JsonConvert.SerializeObject(DateTime.Now, settings);
+                    string imsempcode = MainWindow.UserLogin;
+                    string insdt = jsonDateInput.Substring(1, jsonDateInput.Length - 2);
+
+                    using (SqlConnection conn = new SqlConnection(path_sql_attach))
+                    {
+                        conn.Open();
+                        var command = "INSERT INTO tbSampleAttachHistory SELECT *,'D','" + imsempcode + "','" + insdt + "' from tbSampleAttach WHERE typeSample ='Manual' and SAMNO =" + "'" + ApprovalClickItem.IDNumber + "'";
+                        using (SqlCommand cmd = new SqlCommand(command, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                            conn.Close();
+                        }
                     }
 
                     using (SqlConnection conn = new SqlConnection(path_sql_attach))
@@ -945,6 +1073,8 @@ namespace W_Opera
                 if (MessageBoxResult.Yes == MessageBox.Show("Bạn muốn sửa dữ liệu?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question))
                 {
                     Add_NewData();
+
+                    ProcessSampleManualHist(ApprovalClickItem.IDNumber, "Edit");
                     using (SqlConnection conn = new SqlConnection(path_sql))
                     {
                         conn.Open();
@@ -1239,7 +1369,9 @@ namespace W_Opera
                     conn.Close();
                     Window_AttachFile.listAttachFile.Clear();
                 }
-                ProcessSampleHistory(str_SAMNO,"Save");                
+                ProcessSampleHistory(str_SAMNO,"Save");
+
+                ProcessSampleManualHist(str_SAMNO, "Save");
             }
             catch (Exception ex)
             {
@@ -1263,6 +1395,7 @@ namespace W_Opera
                 {
                     if (checkRun == true)
                     {
+                        ProcessSampleManualHist(SamplePaper.PaperOut.IDNumber, "Printed");
                         using (SqlConnection conn = new SqlConnection(path_sql))
                         {
                             conn.Open();
@@ -1275,6 +1408,7 @@ namespace W_Opera
                             }
                             ColorRowListView(Filter_Sample_All());
                             ProcessSampleHistory(SamplePaper.PaperOut.IDNumber, "Printed");
+                            
                             conn.Close();
                         }
                     }
@@ -1287,6 +1421,7 @@ namespace W_Opera
                 {
                     if (checkRun == true)
                     {
+                        ProcessSampleManualHist(SamplePaper.PaperOut.IDNumber, "Printed");
                         using (SqlConnection conn = new SqlConnection(path_sql))
                         {
                             conn.Open();
@@ -1431,6 +1566,7 @@ namespace W_Opera
         {
             try
             {
+
                 using (SqlConnection conn = new SqlConnection(path_sql))
                 {
                     conn.Open();
@@ -1441,6 +1577,7 @@ namespace W_Opera
                     dateApproval = dateInput;
                     checkView = true;
                     MainWindow.timeApproveManual = dateInput;
+                    ProcessSampleManualHist(ApprovalClickItem.IDNumber, "Arv-" + department);
                     switch (department)
                     {
                         case "SX":
@@ -1470,6 +1607,8 @@ namespace W_Opera
                             }
                     }
                     ProcessSampleHistory(ApprovalClickItem.IDNumber,"Arv-"+department);
+
+                    
                     using (SqlCommand cmd = new SqlCommand(command, conn))
                     {
                         cmd.CommandTimeout = 100;
@@ -1522,13 +1661,20 @@ namespace W_Opera
 
         public void CreatData()
         {
-            CreatAllButtonEdit();
+            //CreatAllButtonEdit();
             ckbTest.Content = "Chuyển đổi";
             accessProcess = "Creat";
             stackManul.Visibility = Visibility.Visible;
-            lvButtonTop.Visibility = Visibility.Visible;
+            //lvButtonTop.Visibility = Visibility.Visible;
             stackApprove.Visibility = Visibility.Visible;           
             grid_ButtonEditor.Visibility = Visibility.Visible;
+
+            AddManBtn.IsEnabled = AddMan;
+            DelManBtn.IsEnabled = DelMan;
+            EditManBtn.IsEnabled = EditMan;
+            SaveManBtn.IsEnabled = SaveMan;
+            RunManBtn.IsEnabled = RunMan;
+
             btnApprove_Ma.Visibility = Visibility.Hidden;
             btnApprove_SX.Visibility = Visibility.Hidden;
             btnApprove_CL.Visibility = Visibility.Hidden;
@@ -1548,21 +1694,25 @@ namespace W_Opera
 
         public void ApproveData()
         {
-            lvButtonTop.Items.Clear(); 
-            if(listButtonTop.Count<6)
-            listButtonTop.Add(new Helper_DataButton
-            {
-                ID = 6,
-                ContentButton = "Run",
-                ImageSource = "Image/Edit/check.png",
-                BackGroundColor = PinValue.OFF
-            });
-            foreach (var button in listButtonTop)
-            {
-                if (button.ID > 4)
-                    lvButtonTop.Items.Add(button);
+            //lvButtonTop.Items.Clear(); 
+            //if(str_Run == "Y")
+            //{
+            //    if (listButtonTop.Count < 6)
+            //        listButtonTop.Add(new Helper_DataButton
+            //        {
+            //            ID = 6,
+            //            ContentButton = "Run",
+            //            ImageSource = "Image/Edit/check.png",
+            //            BackGroundColor = PinValue.OFF
+            //        });
+            //    foreach (var button in listButtonTop)
+            //    {
+            //        if (button.ID > 4)
+            //            lvButtonTop.Items.Add(button);
 
-            }
+            //    }
+            //}    
+            
             ckbTest.Content = "Chuyển đổi";
             accessProcess = "Approve";
             stackApprove.Visibility = Visibility.Visible;
@@ -3223,5 +3373,91 @@ namespace W_Opera
                 MessageBox.Show(ex.Message, "CreatListExcel", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void AddManBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Add";
+            AddManBtn.Background = Brushes.LightGreen;
+            DelManBtn.Background = Brushes.LightGray;
+            EditManBtn.Background = Brushes.LightGray;
+            SaveManBtn.Background = Brushes.LightGray;
+            RunManBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Add();
+
+        }
+
+        private void DelManBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Del";
+            AddManBtn.Background = Brushes.LightGray;
+            DelManBtn.Background = Brushes.LightGreen;
+            EditManBtn.Background = Brushes.LightGray;
+            SaveManBtn.Background = Brushes.LightGray;
+            RunManBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Del();
+            
+        }
+
+        private void EditManBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Edit";
+            AddManBtn.Background = Brushes.LightGray;
+            DelManBtn.Background = Brushes.LightGray;
+            EditManBtn.Background = Brushes.LightGreen;
+            SaveManBtn.Background = Brushes.LightGray;
+            RunManBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Edit();
+            
+        }
+
+        private void SaveManBtn_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Save";
+            AddManBtn.Background = Brushes.LightGray;
+            DelManBtn.Background = Brushes.LightGray;
+            EditManBtn.Background = Brushes.LightGray;
+            SaveManBtn.Background = Brushes.LightGreen;
+            RunManBtn.Background = Brushes.LightGray;
+            ProcessButtonEdit_Save();
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            processButton = "Print";
+            ProcessButtonEdit_Printer();
+        }
+
+        private void RunManBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddManBtn.Background = Brushes.LightGray;
+            DelManBtn.Background = Brushes.LightGray;
+            EditManBtn.Background = Brushes.LightGray;
+            SaveManBtn.Background = Brushes.LightGray;
+            RunManBtn.Background = Brushes.LightGreen;
+            ProcessButtonEdit_Run();
+            
+        }
+
+        private void lvApproveSample_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var click = sender as ListView;
+                var clickItem = click.SelectedItem as Helper_TaixinDB_Model;
+                ModelCodeHist = clickItem.CUSTPARTCODE;
+                Window_HistoryManual window_HistoryManual = new Window_HistoryManual();
+                window_HistoryManual.Show();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Show List History ", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        
     }
 }

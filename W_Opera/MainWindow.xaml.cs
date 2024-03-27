@@ -33,7 +33,7 @@ namespace W_Opera
     public sealed partial class MainWindow : Window
     {
         //public static string strSearch = "";
-        public static string Ver = "V7.6";
+        public static string Ver = "V7.8";
         string str = "open";
         string IPUser = "";
         Thickness margin, margin1;
@@ -116,6 +116,7 @@ namespace W_Opera
                     {
                         UserLogin = item[0].ToString();
                         lbUserLogin.Content = "User:" + UserLogin;
+                        PassLogin = item[1].ToString();
                     }
 
                     //var command = "SELECT TOP 1 UserLogin ,DateLogin FROM TblUserIPLogin WHERE IPLogin = '" + IPUser + "' ORDER BY ID Desc";
@@ -218,24 +219,24 @@ namespace W_Opera
        
         public void CreatButton_Header()
         {
-            ListButton_Header.Add(new Helper_DataButton {
-                ID = 1, ContentButton = "Menu",
-                ImageSource="Image/Dep/Home.png",
-                BackGroundColor = PinValue.OFF });
-            ListButton_Header.Add(new Helper_DataButton
-            {
-                ID = 2,
-                ContentButton = "HR",
-                ImageSource = "Image/Dep/HR.png",
-                BackGroundColor = PinValue.OFF
-            });
-            ListButton_Header.Add(new Helper_DataButton
-            {
-                ID = 3,
-                ContentButton = "ACC",
-                ImageSource = "Image/Dep/Acc.png",
-                BackGroundColor = PinValue.OFF
-            });
+            //ListButton_Header.Add(new Helper_DataButton {
+            //    ID = 1, ContentButton = "Menu",
+            //    ImageSource="Image/Dep/Home.png",
+            //    BackGroundColor = PinValue.OFF });
+            //ListButton_Header.Add(new Helper_DataButton
+            //{
+            //    ID = 2,
+            //    ContentButton = "HR",
+            //    ImageSource = "Image/Dep/HR.png",
+            //    BackGroundColor = PinValue.OFF
+            //});
+            //ListButton_Header.Add(new Helper_DataButton
+            //{
+            //    ID = 3,
+            //    ContentButton = "ACC",
+            //    ImageSource = "Image/Dep/Acc.png",
+            //    BackGroundColor = PinValue.OFF
+            //});
             ListButton_Header.Add(new Helper_DataButton
             {
                 ID = 4,
@@ -243,28 +244,28 @@ namespace W_Opera
                 ImageSource = "Image/Dep/Pro.png",
                 BackGroundColor = PinValue.OFF
             });
-            ListButton_Header.Add(new Helper_DataButton
-            {
-                ID = 5,
-                ContentButton = "QC",
-                ImageSource = "Image/Dep/QC.png",
-                BackGroundColor = PinValue.OFF
-            });
-            ListButton_Header.Add(new Helper_DataButton
-            {
-                ID = 6,
-                ContentButton = "EQUIT",
-                ImageSource = "Image/Dep/Equiment.png",
-                BackGroundColor = PinValue.OFF
+            //ListButton_Header.Add(new Helper_DataButton
+            //{
+            //    ID = 5,
+            //    ContentButton = "QC",
+            //    ImageSource = "Image/Dep/QC.png",
+            //    BackGroundColor = PinValue.OFF
+            //});
+            //ListButton_Header.Add(new Helper_DataButton
+            //{
+            //    ID = 6,
+            //    ContentButton = "EQUIT",
+            //    ImageSource = "Image/Dep/Equiment.png",
+            //    BackGroundColor = PinValue.OFF
 
-            });
-            ListButton_Header.Add(new Helper_DataButton
-            {
-                ID = 7,
-                ContentButton = "IT",
-                ImageSource = "Image/Dep/IT.png",
-                BackGroundColor = PinValue.OFF
-            });
+            //});
+            //ListButton_Header.Add(new Helper_DataButton
+            //{
+            //    ID = 7,
+            //    ContentButton = "IT",
+            //    ImageSource = "Image/Dep/IT.png",
+            //    BackGroundColor = PinValue.OFF
+            //});
             ListButton_Header.Add(new Helper_DataButton
             {
                 ID = 8,

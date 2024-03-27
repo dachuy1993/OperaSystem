@@ -37,13 +37,64 @@ namespace W_Opera
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
+    public class ButtonIsnabled : INotifyPropertyChanged
+    {
+        public bool IsEnabledAddMan;
+        public bool IsEnabledDelMan;
+        public bool IsEnabledEditMan;
+        public bool IsEnabledSaveMan;
+        public bool IsEnabledRunMan;
+
+        public bool IsEnabledAddBox;
+        public bool IsEnabledDelBox;
+        public bool IsEnabledEditBox;
+        public bool IsEnabledSaveBox;
+        public bool IsEnabledRunBox;
+
+        private void NotifyPropertyChanged(string v)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(v));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+
     public class Helper_DataButton : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string ContentButton { get; set; }
         public string _ImageSource { get; set; }
-        public PinValue _CheckCreatTab;  
+        public PinValue _CheckCreatTab;
         public PinValue _BackGround { get; set; }
+        public string _Visibility { get; set; }
+        
+        public string Visibility
+        {
+            get { return this._Visibility; }
+            set
+            {
+                if (this._Visibility != value)
+                {
+                    this._Visibility = value;
+                    NotifyPropertyChanged("Visibility");
+                }
+
+            }
+        }
+        public bool _IsEnabled { get; set; }
+        public bool IsEnabled
+        {
+            get { return this._IsEnabled; }
+            set
+            {
+                if (this._IsEnabled != value)
+                {
+                    this._IsEnabled = value;
+                    NotifyPropertyChanged("IsEnabled");
+                }
+
+            }
+        }
 
         public string ImageSource
         {

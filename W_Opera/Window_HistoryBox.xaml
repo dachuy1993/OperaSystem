@@ -1,0 +1,121 @@
+﻿<Window x:Class="W_Opera.Window_HistoryBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:W_Opera"
+        mc:Ignorable="d"
+        Title="Lịch sử Box" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="ListHistory" ItemContainerStyle="{StaticResource styleConvertColorRowListView}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="STT" Width="40" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                    <GridViewColumn Header="Trạng thái" Width="40" DisplayMemberBinding="{Binding statushis}"></GridViewColumn>
+                    <GridViewColumn Header="Seq" Width="40" DisplayMemberBinding="{Binding seqhis}"></GridViewColumn>
+
+
+                    <GridViewColumn Header="Model Code" Width="150" DisplayMemberBinding="{Binding custpartcode}"></GridViewColumn>
+                    <GridViewColumn Header="Model" Width="100"  DisplayMemberBinding="{Binding custmodelcode}"></GridViewColumn>
+                    <GridViewColumn Header="Mã hàng" Width="150" DisplayMemberBinding="{Binding custpartcode}"></GridViewColumn>
+                    <GridViewColumn Header="Tình trạng" Width="70" DisplayMemberBinding="{Binding information}"></GridViewColumn>
+
+                    <GridViewColumn Header="Ver" Width="30" DisplayMemberBinding="{Binding version}"></GridViewColumn>
+                    <GridViewColumn Header="Khách hàng" Width="80" DisplayMemberBinding="{Binding cust_gb}"></GridViewColumn>
+                    <GridViewColumn Header="Người yêu cầu" Width="100" DisplayMemberBinding="{Binding imsempcode}"></GridViewColumn>
+                    <GridViewColumn Header="Giấy in Upper" Width="100" DisplayMemberBinding="{Binding paper_name1}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước in" Width="100" DisplayMemberBinding="{Binding paper_size1}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" Width="50" DisplayMemberBinding="{Binding paper_scale1}"></GridViewColumn>
+
+                    <GridViewColumn Header="Giấy in Lower" Width="80" DisplayMemberBinding="{Binding paper_name2}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước in" Width="100" DisplayMemberBinding="{Binding paper_size2}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" Width="100" DisplayMemberBinding="{Binding paper_scale2}"></GridViewColumn>
+
+                    <GridViewColumn Header="Giấy in Sleeve" Width="50" DisplayMemberBinding="{Binding paper_name3}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước in" Width="80" DisplayMemberBinding="{Binding paper_size3}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng in" DisplayMemberBinding="{Binding paper_scale3}"></GridViewColumn>
+
+                    <GridViewColumn Header="Nắp trên"  DisplayMemberBinding="{Binding cover_up_name1}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước" Width="400" DisplayMemberBinding="{Binding cover_up_size1}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" Width="100" DisplayMemberBinding="{Binding cover_up_scale1}"></GridViewColumn>
+
+                    <GridViewColumn Header="Nắp dưới" Width="80" DisplayMemberBinding="{Binding cover_up_name2}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước" Width="60" DisplayMemberBinding="{Binding cover_up_size2}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" Width="60" DisplayMemberBinding="{Binding cover_up_scale2}"></GridViewColumn>
+
+                    <GridViewColumn Header="Cover" Width="130" DisplayMemberBinding="{Binding cover_up_name3}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước" Width="130" DisplayMemberBinding="{Binding cover_up_size3}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" DisplayMemberBinding="{Binding cover_up_scale3}"></GridViewColumn>
+
+                    <GridViewColumn Header="Mider" DisplayMemberBinding="{Binding cover_up_name4}"></GridViewColumn>
+                    <GridViewColumn Header="Kích thước" DisplayMemberBinding="{Binding cover_up_size4}"></GridViewColumn>
+                    <GridViewColumn Header="Định dạng" DisplayMemberBinding="{Binding cover_up_scale4}"></GridViewColumn>
+
+                    <GridViewColumn Header="Kích thước thành phẩm" DisplayMemberBinding="{Binding fullsize}"></GridViewColumn>
+                    <GridViewColumn Header="In Index1" DisplayMemberBinding="{Binding printindex1}"></GridViewColumn>
+                    <GridViewColumn Header="In Index2" DisplayMemberBinding="{Binding printindex2}"></GridViewColumn>
+                    <GridViewColumn Header="In Index3" DisplayMemberBinding="{Binding printindex3}"></GridViewColumn>
+
+
+                    <GridViewColumn Header="Màu in 1" Width="130" DisplayMemberBinding="{Binding print_color1}"></GridViewColumn>
+                    <GridViewColumn Header="Màu in 2" Width="130" DisplayMemberBinding="{Binding print_color2}"></GridViewColumn>
+                    <GridViewColumn Header="Màu in 3" DisplayMemberBinding="{Binding print_color3}"></GridViewColumn>
+
+                    <GridViewColumn Header="Coating(lớp phủ)" DisplayMemberBinding="{Binding coating}"></GridViewColumn>
+                    <GridViewColumn Header="Glossy màu" DisplayMemberBinding="{Binding glossy_color}"></GridViewColumn>
+                    <GridViewColumn Header="Glossy nội dung" DisplayMemberBinding="{Binding glossy_detail}"></GridViewColumn>
+
+                    <GridViewColumn Header="Hologram màu 1" DisplayMemberBinding="{Binding holo_color1}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram nội dung 1" DisplayMemberBinding="{Binding holo_detail1}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram màu 2" DisplayMemberBinding="{Binding holo_color2}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram nội dung 2" DisplayMemberBinding="{Binding holo_detail2}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram màu 3" DisplayMemberBinding="{Binding holo_color3}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram nội dung 3" DisplayMemberBinding="{Binding holo_detail3}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram màu 4" DisplayMemberBinding="{Binding holo_color4}"></GridViewColumn>
+                    <GridViewColumn Header="Hologram nội dung 4" DisplayMemberBinding="{Binding holo_detail4}"></GridViewColumn>
+
+                    <GridViewColumn Header="Debossing nội dung" DisplayMemberBinding="{Binding debosing_detail}"></GridViewColumn>
+                    <GridViewColumn Header="Imbossing nội dung" DisplayMemberBinding="{Binding imbosing_detail}"></GridViewColumn>
+                    <GridViewColumn Header="Kiểu bồi" DisplayMemberBinding="{Binding boi_detaiil}"></GridViewColumn>
+                    <GridViewColumn Header="Màu sóng" DisplayMemberBinding="{Binding boi_color}"></GridViewColumn>
+
+                    <GridViewColumn Header="Ngày yêu cầu" DisplayMemberBinding="{Binding sadt}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày hoàn thành" DisplayMemberBinding="{Binding fadt}"></GridViewColumn>
+                    <GridViewColumn Header="Số lượng yêu cầu" DisplayMemberBinding="{Binding qty}"></GridViewColumn>
+
+                    <GridViewColumn Header="Những thông tin khác" DisplayMemberBinding="{Binding remark1}"></GridViewColumn>
+                    <GridViewColumn Header="Forecast" DisplayMemberBinding="{Binding forecast}"></GridViewColumn>
+                    <GridViewColumn Header="Ghi chú" DisplayMemberBinding="{Binding remark2}"></GridViewColumn>
+
+                    <GridViewColumn Header="Số tệp đính kèm" DisplayMemberBinding="{Binding qtyAttach}"></GridViewColumn>
+
+                    <GridViewColumn Header="Mar" DisplayMemberBinding="{Binding dep_mar}"></GridViewColumn>
+                    <GridViewColumn Header="Pro" DisplayMemberBinding="{Binding dep_pro}"></GridViewColumn>
+                    <GridViewColumn Header="QC" DisplayMemberBinding="{Binding dep_qc}"></GridViewColumn>
+                    <GridViewColumn Header="Rnd" DisplayMemberBinding="{Binding dep_rnd}"></GridViewColumn>
+                    <GridViewColumn Header="Pur" DisplayMemberBinding="{Binding dep_pur}"></GridViewColumn>
+                    <GridViewColumn Header="Người sửa" DisplayMemberBinding="{Binding insempcodehis}"></GridViewColumn>
+                    <GridViewColumn Header="ngày sửa" DisplayMemberBinding="{Binding insdthis}"></GridViewColumn>
+
+
+
+
+
+
+
+
+
+
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

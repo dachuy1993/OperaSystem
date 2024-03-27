@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:W_Opera"
       mc:Ignorable="d" 
-      d:DesignHeight="610" d:DesignWidth="1100"
+      d:DesignHeight="610" d:DesignWidth="1300"
       Title="Page_Sample_Manual">
     <Page.Resources>
         <ResourceDictionary>
@@ -65,7 +65,7 @@
         <!--ListView-->
         <Grid Grid.Column="0" Grid.Row="2" Margin="2">
             <ListView x:Name="lvApproveSample" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
-                              SelectionChanged="lvApproveSample_SelectionChanged" Margin="2">
+                              SelectionChanged="lvApproveSample_SelectionChanged" Margin="2" MouseDoubleClick="lvApproveSample_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="√" Width="40">
@@ -184,20 +184,71 @@
                 <!--List Button Edit-->
                 <StackPanel Grid.Row="1" x:Name="grid_ButtonEditor" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                    <ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Margin="2">
+                    <!--<ListView Name="lvButtonTop" Style="{StaticResource styleListViewHorizontal}" Margin="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Button Style="{StaticResource styleButtonEdit}"  
                                     Background="{Binding BackGroundColor,Converter={StaticResource ColorLightGray_LightGreen}}"
-                                    Click="ButtonTop_Click">
+                                    Click="ButtonTop_Click" IsEnabled="{Binding IsEnabled}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="{Binding ImageSource}" Style="{StaticResource styleImageEdit}"></Image>
                                         <TextBlock Text="{Binding ContentButton}" Style="{StaticResource styeTextBlockEdit}"></TextBlock>
+                                        
                                     </StackPanel>
+                                    
+                                    
                                 </Button>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
+                    </ListView>-->
+                    <Button x:Name="AddManBtn" Width="80" Style="{StaticResource styleButtonEdit}" Margin="5,0" 
+                                    Click="AddManBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/add.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Add" VerticalAlignment="Center" Margin="10,0,0,0" />
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="DelManBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="DelManBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/delete.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Del" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="EditManBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="EditManBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/edit.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Edit" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="SaveManBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="SaveManBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/save.png" Width="30"  Margin="0,2"/>
+                            <TextBlock Text="Save" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="Button_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/printer.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Print" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="RunManBtn" Width="80" Margin="5,0" Style="{StaticResource styleButtonEdit}"  
+                                    Click="RunManBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Image/Edit/check.png" Width="30" Margin="0,2"/>
+                            <TextBlock Text="Run" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
                 <!--List Button Approve-->
                 <Border Grid.RowSpan="2" Width="300" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="DodgerBlue" BorderThickness="1" Margin="2">

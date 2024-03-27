@@ -199,6 +199,12 @@
     <Compile Include="Window_Find.xaml.cs">
       <DependentUpon>Window_Find.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window_HistoryBox.xaml.cs">
+      <DependentUpon>Window_HistoryBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window_HistoryManual.xaml.cs">
+      <DependentUpon>Window_HistoryManual.xaml</DependentUpon>
+    </Compile>
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,6 +286,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Window_Find.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window_HistoryBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window_HistoryManual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

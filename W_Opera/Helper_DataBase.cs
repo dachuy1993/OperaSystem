@@ -2014,6 +2014,16 @@ namespace DataHelper
         public string UPDT { get { return _updt; } set { if (_updt != value) { _updt = value; NotifyPropertyChanged("UPDT"); } } }
         public PinValue COLORAPPROVE { get { return _colorApprove; } set { if (_colorApprove != value) { _colorApprove = value; NotifyPropertyChanged("COLORAPPROVE"); } } }
 
+        public string _seqhis;
+        public string _statushis;
+        public string _insempcodehis;
+        public string _insdthis;
+
+        public string SeqHis { get { return _seqhis; } set { if (_seqhis != value) { _seqhis = value; NotifyPropertyChanged("SeqHis"); } } }
+        public string StatusHis { get { return _statushis; } set { if (_statushis != value) { _statushis = value; NotifyPropertyChanged("StatusHis"); } } }
+        public string InsempcodeHis { get { return _insempcodehis; } set { if (_insempcodehis != value) { _insempcodehis = value; NotifyPropertyChanged("InsempcodeHis"); } } }
+        public string InsdtHis { get { return _insdthis; } set { if (_insdthis != value) { _insdthis = value; NotifyPropertyChanged("InsdtHis"); } } }
+
 
 
 
@@ -2604,6 +2614,10 @@ namespace DataHelper
         private string _insdt;
         private string _updempcode;
         private string _upddt;
+        private string _seqhis;
+        private string _statushis;
+        private string _insempcodehis;
+        private string _insdthis;
 
         private string _checkXLS;
         public string checkXLS { get { return _checkXLS; } set { if (_checkXLS != value) { _checkXLS = value; NotifyPropertyChanged("checkXLS"); } } }
@@ -2707,6 +2721,10 @@ namespace DataHelper
         public string insdt { get { return _insdt; } set { if (_insdt != value) { _insdt = value; NotifyPropertyChanged("insdt"); } } }
         public string updempcode { get { return _updempcode; } set { if (_updempcode != value) { _updempcode = value; NotifyPropertyChanged("updempcode"); } } }
         public string upddt { get { return _upddt; } set { if (_upddt != value) { _upddt = value; NotifyPropertyChanged("upddt"); } } }
+        public string seqhis { get { return _seqhis; } set { if (_seqhis != value) { _seqhis = value; NotifyPropertyChanged("seqhis"); } } }
+        public string statushis { get { return _statushis; } set { if (_statushis != value) { _statushis = value; NotifyPropertyChanged("statushis"); } } }
+        public string insempcodehis { get { return _insempcodehis; } set { if (_insempcodehis != value) { _insempcodehis = value; NotifyPropertyChanged("insempcodehis"); } } }
+        public string insdthis { get { return _insdthis; } set { if (_insdthis != value) { _insdthis = value; NotifyPropertyChanged("insdthis"); } } }
 
 
         private void NotifyPropertyChanged(string name)

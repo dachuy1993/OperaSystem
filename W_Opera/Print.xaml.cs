@@ -4,6 +4,7 @@ using OfficeOpenXml.Style;
 using Spire.Xls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -22,6 +23,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Xps.Packaging;
+using W_Opera.DAO;
 using ZXing;
 using ZXing.QrCode;
 
@@ -32,6 +34,8 @@ namespace W_Opera
     /// </summary>
     public partial class Print : Window
     {
+        string DateNow;
+
         public Print()
         {
             InitializeComponent();
@@ -59,6 +63,18 @@ namespace W_Opera
         {
             if(MainWindow.checkPrint==true)
             {
+                List<string> list = new List<string>();
+                string query1 = "SELECT RIGHT(LEFT(CONVERT(VARCHAR(8),getdate(),112),6),2)+'/'+RIGHT(CONVERT(VARCHAR(8),getdate(),112),2) + '/' + LEFT(CONVERT(VARCHAR(8),getdate(),112),4)";
+                string Pra1 = "122";
+                //list = db.Read_TaxinDb_SampleBox(MainWindow.path_sql, query1);
+                var DateNowList = DataProvider.Instance.executeQuery(MainWindow.path_sql, query1, new object[] { Pra1 });
+                foreach (DataRow rowA in DateNowList.Rows)
+                {
+                    DateNow = rowA[0].ToString();
+                }
+
+               
+
                 CreatFileExcel("Box","", "", "", "");                 
                 ViewExcelFile(pathFileExcel);               
             }
@@ -106,8 +122,10 @@ namespace W_Opera
         }
 
         public void Printed(string samno,string typeSample,string imsemplecode)
-        {            
-            try
+        {         
+            
+
+                try
             {
                 using (SqlConnection conn = new SqlConnection(MainWindow.path_sql))
                 {
@@ -457,7 +475,8 @@ namespace W_Opera
                                 ws.Cells["C27:D27"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["C27:D27"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                                ws.Cells["E27:E27"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                //ws.Cells["E27:E27"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                ws.Cells["E27:E27"].Value = DateNow;
                                 ws.Cells["E27:F27"].Merge = true;
                                 ws.Cells["E27:F27"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["E27:F27"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
@@ -554,7 +573,8 @@ namespace W_Opera
                         {
                             using (ExcelPackage p = new ExcelPackage())
                             {
-                                p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                                //p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                                p.Workbook.Properties.Author = DateNow;
                                 p.Workbook.Properties.Title = "Sample";
                                 p.Workbook.Worksheets.Add("Sheet1");
                                 ExcelWorksheet ws = p.Workbook.Worksheets[1];
@@ -667,7 +687,8 @@ namespace W_Opera
                                 ws.Cells["A3:B3"].Merge = true;
                                 ws.Cells["A3:B3"].Style.Font.Size = 12;
 
-                                ws.Cells["C3:X3"].Value = DateTime.Now.ToString("dd/MM/yyyy");                                          
+                                //ws.Cells["C3:X3"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+                                ws.Cells["C3:X3"].Value = DateNow;
                                 ws.Cells["C3:X3"].Merge = true;
                                 ws.Cells["C3:X3"].Style.Font.Size = 12;
                                 ws.Cells["C3:X3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
@@ -991,7 +1012,8 @@ namespace W_Opera
                                 ws.Cells["H32:Q32"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["H32:Q32"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                                ws.Cells["R32:X32"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                //ws.Cells["R32:X32"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                ws.Cells["R32:X32"].Value = DateNow;
                                 ws.Cells["R32:X32"].Merge = true;
                                 ws.Cells["R32:X32"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["R32:X32"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
@@ -1048,7 +1070,8 @@ namespace W_Opera
                         {
                             using (ExcelPackage p = new ExcelPackage())
                             {
-                                p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                                //p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                                p.Workbook.Properties.Author = DateNow;
                                 p.Workbook.Properties.Title = "Sample";
                                 p.Workbook.Worksheets.Add("Sheet1");
                                 ExcelWorksheet ws = p.Workbook.Worksheets[1];
@@ -1151,7 +1174,8 @@ namespace W_Opera
                                 //Ngày SX
                                 ws.Cells["A3:B3"].Value = "Ngày : ";
                                 ws.Cells["A3:B3"].Merge = true;
-                                ws.Cells["C3:X3"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+                                //ws.Cells["C3:X3"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+                                ws.Cells["C3:X3"].Value = DateNow;
                                 ws.Cells["C3:X3"].Merge = true;                               
                                 ws.Cells["C3:X3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
@@ -1639,7 +1663,8 @@ namespace W_Opera
                                 ws.Cells["H38:Q38"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["H38:Q38"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                                ws.Cells["R38:X38"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                //ws.Cells["R38:X38"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                ws.Cells["R38:X38"].Value = DateNow;
                                 ws.Cells["R38:X38"].Merge = true;
                                 ws.Cells["R38:X38"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                                 ws.Cells["R38:X38"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
@@ -1728,6 +1753,7 @@ namespace W_Opera
                 workbook.LoadFromFile(_pathFileExcel, ExcelVersion.Version2010);
                 pathTemp = @"TempFile//TempFileXps" + index.ToString() + ".xpsx";
                 workbook.SaveToFile(pathTemp, Spire.Xls.FileFormat.XPS);
+                //workbook.SaveToFile(pathTemp, Spire.Xls.FileFormat.PDF);
                 XpsDocument xpsDocument = new XpsDocument(pathTemp, FileAccess.Read);
                 view.Document = xpsDocument.GetFixedDocumentSequence();
                 view.FitToHeight();
@@ -1803,7 +1829,9 @@ namespace W_Opera
                     }  
                     
                     numberRow = numberRow + 5;
-                    p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                    p.Workbook.Properties.Author = DateNow;
+                    //p.Workbook.Properties.Author = DateTime.Now.ToShortDateString();
+                    p.Workbook.Properties.Author = DateNow;
                     p.Workbook.Properties.Title = "Sample";
                     p.Workbook.Worksheets.Add("Sheet1");
                     ExcelWorksheet ws = p.Workbook.Worksheets[1];
@@ -1914,7 +1942,8 @@ namespace W_Opera
 
 
                     //Ngày SX
-                    ws.Cells["A3:A3"].Value = "Ngày : " + DateTime.Now.ToString("dd/MM/yyyy");
+                    //ws.Cells["A3:A3"].Value = "Ngày : " + DateTime.Now.ToString("dd/MM/yyyy");
+                    ws.Cells["A3:A3"].Value = "Ngày : " + DateNow;
                     ws.Cells["A3:I3"].Merge = true;
                     ws.Cells["A3:A3"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                     ws.Cells["A3:A3"].Style.Font.Bold = true;

@@ -33,14 +33,14 @@
             <DatePicker Name="dp_DateFinish" VerticalContentAlignment="Center" Height="30"
                             SelectedDateChanged="Dp_DateFinish_SelectedDateChanged"></DatePicker>
             <Label Content="Mã nhân viên" VerticalContentAlignment="Center"></Label>
-            <TextBox x:Name="txt_FilterSample" KeyDown="txt_FilterSample_KeyDown" Width="150" Margin="5" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>     
-            <Button x:Name="btn_FilterSample" Click="btn_FilterSample_Click" Content="Tìm kiếm" Height="30" Width="100"></Button>           
+            <TextBox x:Name="txt_FilterSample" KeyDown="txt_FilterSample_KeyDown" Width="150" Margin="5" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+            <Button x:Name="btn_FilterSample" Click="btn_FilterSample_Click" Content="Tìm kiếm" Height="30" Width="100"></Button>
 
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
             <Label VerticalAlignment="Center">ID</Label>
             <TextBox x:Name="txt_UserApprove" Width="140" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-            <Label VerticalAlignment="Center">Name</Label>
+            <Label VerticalAlignment="Center" >Name</Label>
             <TextBox x:Name="txt_NameApprove" Width="140" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
             <Label VerticalAlignment="Center">Department</Label>
             <TextBox x:Name="txt_DepApprove" Width="150" Height="30" Margin="2"  VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
@@ -66,18 +66,30 @@
                     <RowDefinition Height="1"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>                    
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="0.5"/>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="0.5"/>
+
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="0.5"/>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="0.5"/>
-                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="70"/>
+
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="70"/>
                     <ColumnDefinition Width="0.5"/>
                     <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0.5"/>
+                    <ColumnDefinition Width="70"/>
+
                     <ColumnDefinition Width="0.5"/>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="0.5"/>
@@ -90,27 +102,42 @@
                 <Grid Grid.Column="11" Grid.RowSpan="3" Background="Gray"></Grid>
                 <Grid Grid.Column="13" Grid.RowSpan="3" Background="Gray"></Grid>
                 <Grid Grid.Column="15" Grid.RowSpan="3" Background="Gray"></Grid>
-                <Grid Grid.Row="1" Grid.ColumnSpan="15" Background="Gray"></Grid>
-               
+                <Grid Grid.Column="17" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="19" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Column="21" Grid.RowSpan="3" Background="Gray"></Grid>
+                <Grid Grid.Row="1" Grid.ColumnSpan="21" Background="Gray"></Grid>
+
                 <Grid Grid.Row="0" Grid.Column="0">
                     <Label HorizontalContentAlignment="Center" FontWeight="Bold">Create</Label>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="2">
                     <Label HorizontalContentAlignment="Center" FontWeight="Bold">Approve</Label>
-                </Grid>               
+                </Grid>
                 <Grid Grid.Row="0" Grid.Column="4">
-                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Add</Label>
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Add Man</Label>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="6">
-                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Del</Label>
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Del Man</Label>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="8">
-                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Edit</Label>
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Edit Man</Label>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="10">
-                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Save</Label>
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Save Man</Label>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="12">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Add Box</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="14">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Del Box</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="16">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Edit Box</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="18">
+                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Save Box</Label>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="20">
                     <Label HorizontalContentAlignment="Center" FontWeight="Bold">Run</Label>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="0">
@@ -120,7 +147,12 @@
                     <CheckBox x:Name="ck_Approve" Checked="ck_Approve_Checked" Unchecked="ck_Approve_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="4">
-                    <CheckBox x:Name="ck_Add" Checked="ck_Add_Checked" Unchecked="ck_Add_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="18*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ck_Add" Checked="ck_Add_Checked" Unchecked="ck_Add_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="22,0,0,0" Grid.ColumnSpan="2"></CheckBox>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="6">
                     <CheckBox x:Name="ck_Del" Checked="ck_Del_Checked" Unchecked="ck_Del_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
@@ -132,14 +164,36 @@
                     <CheckBox x:Name="ck_Save" Checked="ck_Save_Checked" Unchecked="ck_Save_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="18*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="ck_AddBox" Checked="ck_AddBox_Checked" Unchecked="ck_AddBox_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="22,0,0,0" Grid.ColumnSpan="2"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="14">
+                    <CheckBox x:Name="ck_DelBox" Checked="ck_DelBox_Checked" Unchecked="ck_DelBox_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="16">
+                    <CheckBox x:Name="ck_EditBox" Checked="ck_EditBox_Checked" Unchecked="ck_EditBox_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="18">
+                    <CheckBox x:Name="ck_SaveBox" Checked="ck_SaveBox_Checked" Unchecked="ck_SaveBox_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="20">
                     <CheckBox x:Name="ck_Run" Checked="ck_Run_Checked" Unchecked="ck_Run_Unchecked" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
                 </Grid>
             </Grid>
         </Border>
         <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Margin="2">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="138*"/>
+                    <ColumnDefinition Width="199*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
                 <ListView x:Name="lvApproveSample" ItemContainerStyle="{StaticResource styleConvertColorRowListView}"
-                              SelectionChanged="lvApproveSample_SelectionChanged">
+                              SelectionChanged="lvApproveSample_SelectionChanged" Grid.ColumnSpan="3">
                     <ListView.View>
                         <GridView>
                             <!--<GridViewColumn DisplayMemberBinding="{Binding UserApprove,Mode=OneWay}">
@@ -151,8 +205,8 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <StackPanel Width="100" HorizontalAlignment="Center">
-                                            <Label Content="{Binding UserApprove,Mode=OneWay }" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Label>                                           
-                                        </StackPanel>                                       
+                                            <Label Content="{Binding UserApprove,Mode=OneWay }" HorizontalAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -174,7 +228,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Creat" Width="100">
+                            <GridViewColumn Header="Creat" Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <Grid Width="50" HorizontalAlignment="Center">
@@ -183,7 +237,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Approve" Width="100">
+                            <GridViewColumn Header="Approve" Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <Grid Width="50" HorizontalAlignment="Center">
@@ -192,7 +246,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Run" Width="100">
+                            <GridViewColumn Header="Run" Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <Grid Width="50" HorizontalAlignment="Center">
@@ -201,7 +255,79 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Date" Width="300">
+                            <GridViewColumn Header="Add Man" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding AddMan}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Del Man" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding DelMan}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Edit Man" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding EditMan}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Save Man" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding SaveMan}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Add Box" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding AddBox}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Del Box" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding DelBox}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Edit Box" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding EditBox}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Save Box" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Grid Width="50" HorizontalAlignment="Center">
+                                            <Ellipse Width="20" Height="20" Fill="{Binding SaveBox}"></Ellipse>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Date" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate >
                                         <Grid Width="200" HorizontalAlignment="Center">
